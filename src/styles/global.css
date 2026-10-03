@@ -75,9 +75,6 @@
   --font-sans: var(--font-plex-sans);
   --font-mono: var(--font-plex-mono);
   --font-head: var(--font-bricolage);
-
-  /* keeps text readable where a PCB trace runs right behind it */
-  --text-shadow-halo: 0 0 2px var(--bg), 0 0 8px var(--bg), 0 0 16px var(--bg);
 }
 
 @theme {
