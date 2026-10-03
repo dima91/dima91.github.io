@@ -1,0 +1,36 @@
+# Projects, rendered by `order` (Astro stores entries sorted by id).
+# `art` picks the banner illustration (src/components/project-art/).
+# `link` must point to GitHub or GitLab: the link label is derived from it.
+- id: pi-touch-date
+  order: 1
+  name: pi-touch-date
+  tag: Open source · MIT
+  description:
+    en: A touch-friendly digital calendar for Raspberry Pi with a touchscreen. It runs full-screen on Raspberry Pi OS and includes a custom on-screen keyboard control.
+    it: Un calendario digitale touch per Raspberry Pi con touchscreen. Gira a schermo intero su Raspberry Pi OS e include un controllo di tastiera su schermo personalizzato.
+  tech: [C#, .NET 8, Avalonia UI, ReactiveUI, Raspberry Pi, GitHub Actions]
+  link: https://github.com/dima91/pi-touch-date
+  art: calendar
+
+- id: my-favourite-wedding
+  order: 2
+  name: my-favourite-wedding
+  tag:
+    en: Web platform
+    it: Piattaforma web
+  description:
+    en: "A web platform to organize a wedding: guest access with printed invitation codes, expense tracking with receipts, and photo uploads from guests, stored on self-hosted S3-compatible storage."
+    it: "Una piattaforma web per organizzare un matrimonio: accesso degli invitati con codici stampati sugli inviti, gestione delle spese con ricevute e caricamento delle foto da parte degli ospiti, su storage S3-compatibile self-hosted."
+  tech: [React, Mantine, Express.js, PostgreSQL, Docker Compose, Garage / MinIO]
+  link: https://gitlab.com/dima.91/my-favourite-wedding
+  art: wedding
+
+- id: devserver
+  order: 3
+  name: devserver
+  tag: Repository
+  description:
+    en: Source code available on GitLab.
+    it: Codice sorgente disponibile su GitLab.
+  link: https://gitlab.com/dima.91/devserver
+  art: devserver

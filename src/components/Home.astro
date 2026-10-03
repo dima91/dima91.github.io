@@ -4,6 +4,7 @@ import { getLang, useTranslations } from '../i18n/ui';
 import Contact from './Contact.astro';
 import Experience from './Experience.astro';
 import Hero from './Hero.astro';
+import Projects from './Projects.astro';
 
 const t = useTranslations(getLang(Astro.currentLocale));
 ---
@@ -11,5 +12,6 @@ const t = useTranslations(getLang(Astro.currentLocale));
 <BaseLayout title={t('meta.title')} description={t('meta.description')}>
   <Hero />
   <Experience />
+  <Projects />
   <Contact />
 </BaseLayout>

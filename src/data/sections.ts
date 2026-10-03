@@ -5,7 +5,7 @@ export type SectionId = 'about' | 'experience' | 'projects' | 'skills' | 'public
  * so a section shows up in both as soon as it is added here.
  * `about` (the hero) is linked but not numbered; `contact` is the nav call to action.
  */
-export const sections: SectionId[] = ['about', 'experience', 'contact'];
+export const sections: SectionId[] = ['about', 'experience', 'projects', 'contact'];
 
 const numbered = sections.filter((id) => id !== 'about');
 

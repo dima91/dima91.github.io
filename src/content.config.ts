@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { file } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { codeHostName, codeHosts } from './data/codeHosts';
 
 /** Translatable text: a plain string when identical in every language, otherwise { en, it }. */
 const text = z.union([z.string(), z.object({ en: z.string(), it: z.string() })]);
@@ -40,4 +41,19 @@ const education = defineCollection({
   }),
 });
 
-export const collections = { contacts, experience, education };
+const projects = defineCollection({
+  loader: file('src/content/projects.yaml'),
+  schema: z.object({
+    order: z.number().int(),
+    name: z.string(),
+    tag: text,
+    description: text,
+    tech: z.array(z.string()).optional(),
+    link: z
+      .url()
+      .refine((url) => codeHostName(url) !== undefined, `expected a link to ${Object.keys(codeHosts).join(' or ')}`),
+    art: z.enum(['calendar', 'wedding', 'devserver']),
+  }),
+});
+
+export const collections = { contacts, experience, education, projects };
