@@ -22,6 +22,23 @@ const en = {
   // label for switching *to* this language (see LangToggle)
   'toggle.lang': 'Read in English',
 
+  'hero.place': 'Siena, Italy',
+  'hero.bio1':
+    'I build software that lives close to the hardware: firmware for custom embedded boards, and the desktop, web and network tooling around them. Nine years across research, product companies and clinical laboratory instrumentation.',
+  'hero.bio2':
+    'Today I develop software for diagnostic laboratory instruments at DIESSE and lead the development of a desktop application for ESR exam management, including DAS-28 parameter calculation.',
+  'hero.cta.contact': 'Get in touch',
+  'hero.alt':
+    'Illustration of a laptop showing a system status dashboard, connected to server racks on one side and to an ESP32 board with sensors and LEDs on the other',
+  'stats.label': 'Highlights',
+  'stats.years': 'years building software',
+  'stats.pubs': 'IEEE publications',
+  'stats.plugtests': 'ETSI Plugtests',
+
+  'contact.title': 'Let’s talk',
+  'contact.lead':
+    'Open to interesting projects in embedded, IoT and desktop software. The quickest way to reach me is email.',
+
   'footer.top': 'Back to top ↑',
 } as const;
 
@@ -43,6 +60,23 @@ const it: Record<UiKey, string> = {
 
   'toggle.theme': 'Cambia tema chiaro/scuro',
   'toggle.lang': 'Leggi in italiano',
+
+  'hero.place': 'Siena, Italia',
+  'hero.bio1':
+    'Costruisco software che vive vicino all’hardware: firmware per schede embedded custom e gli strumenti desktop, web e di rete che le circondano. Nove anni tra ricerca, aziende di prodotto e strumentazione per laboratori clinici.',
+  'hero.bio2':
+    'Oggi sviluppo il software per gli strumenti diagnostici di laboratorio di DIESSE e guido lo sviluppo di un’applicazione desktop per la gestione degli esami VES, incluso il calcolo del parametro DAS-28.',
+  'hero.cta.contact': 'Contattami',
+  'hero.alt':
+    'Illustrazione di un laptop che mostra una dashboard di stato del sistema, collegato da un lato a rack di server e dall’altro a una scheda ESP32 con sensori e LED',
+  'stats.label': 'In evidenza',
+  'stats.years': 'anni di sviluppo',
+  'stats.pubs': 'pubblicazioni IEEE',
+  'stats.plugtests': 'ETSI Plugtests',
+
+  'contact.title': 'Parliamone',
+  'contact.lead':
+    'Aperto a progetti interessanti in ambito embedded, IoT e software desktop. Il modo più rapido per raggiungermi è l’email.',
 
   'footer.top': 'Torna su ↑',
 };

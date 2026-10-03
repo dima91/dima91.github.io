@@ -1,8 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getLang, useTranslations } from '../i18n/ui';
+import Contact from './Contact.astro';
+import Hero from './Hero.astro';
 
 const t = useTranslations(getLang(Astro.currentLocale));
 ---
 
-<BaseLayout title={t('meta.title')} description={t('meta.description')} />
+<BaseLayout title={t('meta.title')} description={t('meta.description')}>
+  <Hero />
+  <Contact />
+</BaseLayout>

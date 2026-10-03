@@ -1,0 +1,21 @@
+# Contact links, rendered by `order` (Astro stores entries sorted by id).
+- id: email
+  order: 1
+  label: Email
+  value: luca.dimauro@email.com
+  href: mailto:luca.dimauro@email.com
+- id: linkedin
+  order: 2
+  label: LinkedIn
+  value: luca-di-mauro
+  href: https://www.linkedin.com/in/luca-di-mauro-19245a121
+- id: github
+  order: 3
+  label: GitHub
+  value: dima91
+  href: https://github.com/dima91
+- id: telegram
+  order: 4
+  label: Telegram
+  value: "@dima91"
+  href: https://telegram.me/dima91

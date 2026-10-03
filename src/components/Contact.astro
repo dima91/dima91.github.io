@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import { getLang, useTranslations } from '../i18n/ui';
+import Card from './Card.astro';
+import Section from './Section.astro';
+
+const t = useTranslations(getLang(Astro.currentLocale));
+const contacts = (await getCollection('contacts')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Section id="contact" title={t('contact.title')}>
+  <div class="reveal">
+    <p class="mb-10 max-w-[26ch] font-head text-lead text-shadow-halo">{t('contact.lead')}</p>
+    <ul class="grid max-w-[760px] grid-cols-1 gap-3.5 sm:grid-cols-2">
+      {
+        contacts.map(({ data }) => {
+          const external = data.href.startsWith('http');
+          return (
+            <li>
+              <Card
+                as="a"
+                hover
+                href={data.href}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noopener' : undefined}
+                class="flex flex-col gap-0.5 px-5.5 py-5 font-medium wrap-anywhere"
+              >
+                <span class="font-mono text-[12px] font-normal tracking-[.08em] text-accent uppercase">{data.label}</span>
+                {data.value}
+              </Card>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</Section>
