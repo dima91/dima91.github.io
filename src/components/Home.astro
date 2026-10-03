@@ -5,6 +5,7 @@ import { getLang, useTranslations } from '../i18n/ui';
 import Contact from './Contact.astro';
 import Experience from './Experience.astro';
 import Hero from './Hero.astro';
+import Hobbies from './Hobbies.astro';
 import Projects from './Projects.astro';
 import Publications from './Publications.astro';
 import Skills from './Skills.astro';
@@ -22,5 +23,6 @@ const t = useTranslations(getLang(Astro.currentLocale));
   <Projects />
   <Skills />
   <Publications />
+  <Hobbies />
   <Contact />
 </BaseLayout>

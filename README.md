@@ -37,7 +37,7 @@ tools/gen_pcb.py          generator of the PCB background tiles
 ## Editing content
 
 Everything shown on the page lives in `src/content/*.yaml` (contacts, experience, education, projects, skills,
-publications) or, for interface copy such as headings, buttons and the hero bio, in `src/i18n/ui.ts`.
+publications, hobbies) or, for interface copy such as headings, buttons and the hero bio, in `src/i18n/ui.ts`.
 The schemas in `src/content.config.ts` validate every entry at build time, so a typo fails the build with
 a message pointing at the field.
 
@@ -52,9 +52,9 @@ a message pointing at the field.
 
   In `ui.ts`, the Italian dictionary must define every key of the English one (enforced by the type checker).
 - **Order**: experience and education are sorted by `start` (`YYYY-MM`) and publications by `year`, newest first.
-  Contacts, projects and skills are sorted by their `order` field, because Astro stores entries sorted by id
+  Contacts, projects, skills and hobbies are sorted by their `order` field, because Astro stores entries sorted by id
   rather than in file order.
-- **Layout adapts by itself**: the projects and skills grids widen a lone last card, and the hero counts the
+- **Layout adapts by itself**: the projects, skills and hobbies grids widen a lone last card, and the hero counts the
   publications. Adding or removing entries needs no markup change.
 - **Project illustrations**: a project's `art` picks one of the components in `src/components/project-art/`.
   To add one, create a component there using the shared paint classes in `paint.ts`, then register it in

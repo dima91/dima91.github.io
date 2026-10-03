@@ -2,6 +2,7 @@ import { defineCollection } from 'astro:content';
 import { file } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { codeHostName, codeHosts } from './data/codeHosts';
+import { sections, type SectionId } from './data/sections';
 
 /** Translatable text: a plain string when identical in every language, otherwise { en, it }. */
 const text = z.union([z.string(), z.object({ en: z.string(), it: z.string() })]);
@@ -84,4 +85,21 @@ const publications = defineCollection({
   }),
 });
 
-export const collections = { contacts, experience, education, projects, skills, publications };
+const hobbies = defineCollection({
+  loader: file('src/content/hobbies.yaml'),
+  schema: z.object({
+    order: z.number().int(),
+    icon: z.enum(['chip', 'pulse']),
+    title: text,
+    description: text,
+    items: z.array(text).optional(),
+    link: z
+      .object({
+        section: z.enum(sections as [SectionId, ...SectionId[]]),
+        label: text,
+      })
+      .optional(),
+  }),
+});
+
+export const collections = { contacts, experience, education, projects, skills, publications, hobbies };

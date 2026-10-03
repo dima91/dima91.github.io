@@ -22,11 +22,12 @@ const hasContact = nav && sections.includes('contact');
   class="sticky top-0 z-20 flex items-center justify-between border-b border-transparent bg-nav px-[calc(var(--spacing-gutter)+64px)] py-3.5 backdrop-blur-md transition-colors duration-300 data-scrolled:border-line"
 >
   <nav aria-label={t('nav.label')} class="flex-1">
-    <ul class="flex items-center gap-[clamp(14px,3vw,32px)]">
+    <!-- links need ~840px in Italian: shown from md, with the mockup spacing from lg -->
+    <ul class="flex items-center gap-4 lg:gap-8">
       {
         links.map((id) => (
-          <li class="hidden sm:block">
-            <a href={`#${id}`} class="text-[15px] text-ink-soft transition-colors duration-200 hover:text-ink">
+          <li class="hidden md:block">
+            <a href={`#${id}`} class="text-[15px] whitespace-nowrap text-ink-soft transition-colors duration-200 hover:text-ink">
               {t(`nav.${id}`)}
             </a>
           </li>
@@ -34,10 +35,10 @@ const hasContact = nav && sections.includes('contact');
       }
       {
         hasContact && (
-          <li class="hidden sm:block">
+          <li class="hidden md:block">
             <a
               href="#contact"
-              class="rounded-full border-[1.5px] border-ink px-4 py-1.75 text-[15px] text-ink transition-colors duration-200 hover:bg-ink hover:text-bg"
+              class="rounded-full border-[1.5px] border-ink px-4 py-1.75 text-[15px] whitespace-nowrap text-ink transition-colors duration-200 hover:bg-ink hover:text-bg"
             >
               {t('nav.contact')}
             </a>

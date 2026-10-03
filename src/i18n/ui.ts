@@ -16,6 +16,7 @@ const en = {
   'nav.projects': 'Projects',
   'nav.skills': 'Skills',
   'nav.publications': 'Publications',
+  'nav.hobbies': 'Hobbies',
   'nav.contact': 'Contact',
 
   'toggle.theme': 'Toggle light/dark theme',
@@ -47,6 +48,9 @@ const en = {
 
   'pubs.title': 'Publications',
 
+  'hobbies.title': 'Outside work',
+  'hobbies.lead': 'When I’m away from the desk I keep building things out of curiosity, and I like to stay on the move.',
+
   'contact.title': 'Let’s talk',
   'contact.lead':
     'Open to interesting projects in embedded, IoT and desktop software. The quickest way to reach me is email.',
@@ -74,6 +78,7 @@ const it: Record<UiKey, string> = {
   'nav.projects': 'Progetti',
   'nav.skills': 'Competenze',
   'nav.publications': 'Pubblicazioni',
+  'nav.hobbies': 'Hobby',
   'nav.contact': 'Contatti',
 
   'toggle.theme': 'Cambia tema chiaro/scuro',
@@ -103,6 +108,9 @@ const it: Record<UiKey, string> = {
   'skills.title': 'Competenze',
 
   'pubs.title': 'Pubblicazioni',
+
+  'hobbies.title': 'Fuori dal lavoro',
+  'hobbies.lead': 'Lontano dalla scrivania continuo a costruire cose per curiosità, e mi piace stare in movimento.',
 
   'contact.title': 'Parliamone',
   'contact.lead':

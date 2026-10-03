@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import Chip from '../assets/icons/chip.svg';
+import Pulse from '../assets/icons/pulse.svg';
+import { sections } from '../data/sections';
+import { getLang, l, useTranslations } from '../i18n/ui';
+import Card from './Card.astro';
+import Chips from './Chips.astro';
+import Section from './Section.astro';
+
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+
+const hobbies = (await getCollection('hobbies')).sort((a, b) => a.data.order - b.data.order);
+const icons = { chip: Chip, pulse: Pulse };
+// two columns: a lone last card takes the whole row
+const isLone = (i: number) => hobbies.length % 2 === 1 && i === hobbies.length - 1;
+// links point to another section of the page: the arrow tells whether it is above or below
+const arrow = (target: (typeof sections)[number]) =>
+  sections.indexOf(target) < sections.indexOf('hobbies') ? '↑' : '↓';
+---
+
+<Section id="hobbies" title={t('hobbies.title')}>
+  <p class="reveal mb-10 max-w-[34ch] font-head text-lead text-shadow-halo">{t('hobbies.lead')}</p>
+  <div class="grid grid-cols-1 gap-5.5 sm:grid-cols-2">
+    {
+      hobbies.map(({ data: hobby }, i) => {
+        const Icon = icons[hobby.icon];
+        return (
+          <Card as="article" hover class:list={['reveal flex flex-col p-7', isLone(i) && 'sm:col-span-2']}>
+            <span class="mb-4 inline-grid size-9.5 place-items-center self-start rounded-[10px] border border-line bg-bg text-accent-bright">
+              <Icon aria-hidden="true" />
+            </span>
+            <h3 class="mb-1 font-head text-[22px] font-bold tracking-[-.01em]">{l(hobby.title, lang)}</h3>
+            <p class="text-[15px] text-ink-soft">{l(hobby.description, lang)}</p>
+            {hobby.items && <Chips items={hobby.items.map((item) => l(item, lang))} class="mt-5" />}
+            {hobby.link && (
+              <div class="mt-auto pt-6">
+                <a
+                  href={`#${hobby.link.section}`}
+                  class="inline-block border-b-[1.5px] border-accent-bright pb-0.5 text-[15px] font-medium transition-colors duration-200 hover:text-accent"
+                >
+                  {l(hobby.link.label, lang)} <span aria-hidden="true">{arrow(hobby.link.section)}</span>
+                </a>
+              </div>
+            )}
+          </Card>
+        );
+      })
+    }
+  </div>
+</Section>
