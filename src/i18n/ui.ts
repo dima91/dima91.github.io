@@ -53,7 +53,7 @@ const en = {
 
   'contact.title': 'Let’s talk',
   'contact.lead':
-    'Open to interesting projects in embedded, IoT and desktop software. The quickest way to reach me is email.',
+    'Open to interesting projects in embedded, desktop software and full-stack development. The quickest way to reach me is email.',
 
   'footer.top': 'Back to top ↑',
 
@@ -114,7 +114,7 @@ const it: Record<UiKey, string> = {
 
   'contact.title': 'Parliamone',
   'contact.lead':
-    'Aperto a progetti interessanti in ambito embedded, IoT e software desktop. Il modo più rapido per raggiungermi è l’email.',
+    'Aperto a progetti interessanti in ambito embedded, software desktop e sviluppo full-stack. Il modo più rapido per raggiungermi è l’email.',
 
   'footer.top': 'Torna su ↑',
 
