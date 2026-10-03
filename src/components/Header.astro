@@ -1,15 +1,10 @@
 ---
-import { sections, type SectionId } from '../data/sections';
+import { sections } from '../data/sections';
+import { getLang, useTranslations } from '../i18n/ui';
+import LangToggle from './LangToggle.astro';
 import ThemeToggle from './ThemeToggle.astro';
 
-const labels: Record<SectionId, string> = {
-  about: 'About',
-  experience: 'Experience',
-  projects: 'Projects',
-  skills: 'Skills',
-  publications: 'Publications',
-  contact: 'Contact',
-};
+const t = useTranslations(getLang(Astro.currentLocale));
 
 const links = sections.filter((id) => id !== 'contact');
 const hasContact = sections.includes('contact');
@@ -20,13 +15,13 @@ const hasContact = sections.includes('contact');
   data-header
   class="sticky top-0 z-20 flex items-center justify-between border-b border-transparent bg-nav px-[calc(var(--spacing-gutter)+64px)] py-3.5 backdrop-blur-md transition-colors duration-300 data-scrolled:border-line"
 >
-  <nav aria-label="Main" class="flex-1">
+  <nav aria-label={t('nav.label')} class="flex-1">
     <ul class="flex items-center gap-[clamp(14px,3vw,32px)]">
       {
         links.map((id) => (
           <li class="hidden sm:block">
             <a href={`#${id}`} class="text-[15px] text-ink-soft transition-colors duration-200 hover:text-ink">
-              {labels[id]}
+              {t(`nav.${id}`)}
             </a>
           </li>
         ))
@@ -38,12 +33,13 @@ const hasContact = sections.includes('contact');
               href="#contact"
               class="rounded-full border-[1.5px] border-ink px-4 py-1.75 text-[15px] text-ink transition-colors duration-200 hover:bg-ink hover:text-bg"
             >
-              {labels.contact}
+              {t('nav.contact')}
             </a>
           </li>
         )
       }
       <li class="ml-auto flex items-center gap-2">
+        <LangToggle />
         <ThemeToggle />
       </li>
     </ul>

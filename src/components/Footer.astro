@@ -1,4 +1,7 @@
 ---
+import { getLang, useTranslations } from '../i18n/ui';
+
+const t = useTranslations(getLang(Astro.currentLocale));
 const year = new Date().getFullYear();
 ---
 
@@ -6,5 +9,5 @@ const year = new Date().getFullYear();
   class="mx-auto flex max-w-page flex-wrap justify-between gap-4 border-t border-line px-gutter pt-8 pb-12 text-[14px] text-ink-soft"
 >
   <p>© {year} Luca Di Mauro</p>
-  <a href="#top" class="transition-colors duration-200 hover:text-ink">Back to top ↑</a>
+  <a href="#top" class="transition-colors duration-200 hover:text-ink">{t('footer.top')}</a>
 </footer>

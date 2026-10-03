@@ -9,6 +9,12 @@ import mdx from '@astrojs/mdx';
 export default defineConfig({
   site: 'https://dima91.github.io',
 
+  i18n: {
+    locales: ['en', 'it'],
+    defaultLocale: 'en',
+    routing: { prefixDefaultLocale: false }
+  },
+
   fonts: [
     {
       provider: fontProviders.google(),

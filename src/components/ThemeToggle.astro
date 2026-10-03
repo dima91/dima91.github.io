@@ -1,12 +1,15 @@
 ---
 import Sun from '../assets/icons/sun.svg';
 import Moon from '../assets/icons/moon.svg';
+import { getLang, useTranslations } from '../i18n/ui';
+
+const t = useTranslations(getLang(Astro.currentLocale));
 ---
 
 <button
   id="theme-toggle"
   type="button"
-  aria-label="Toggle light/dark theme"
+  aria-label={t('toggle.theme')}
   class="inline-grid size-9 cursor-pointer place-items-center rounded-full border-[1.5px] border-line text-ink transition-colors duration-200 hover:border-ink-soft"
 >
   <Sun class="hidden dark:block" aria-hidden="true" />
