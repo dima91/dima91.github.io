@@ -24,14 +24,13 @@ src/
 ├── content.config.ts     collection schemas
 ├── i18n/ui.ts            UI strings (en/it) and translation helpers
 ├── data/sections.ts      section order → nav links and 01, 02… labels
-├── components/           one component per section, plus Card, Chips, Section
+├── components/           one component per section, plus Card, Chips, Section, PcbBackground
 │   └── project-art/      SVG banner illustrations of the project cards
 ├── layouts/BaseLayout.astro
 ├── pages/                index.astro (en) and it/index.astro, both render Home.astro
 ├── styles/global.css     Tailwind theme: palette, breakpoints, type scale
 └── assets/               hero image and icons, optimized at build time
-public/                   favicon and PCB background tiles
-tools/gen_pcb.py          generator of the PCB background tiles
+public/                   favicons
 ```
 
 ## Editing content
@@ -67,11 +66,11 @@ Colors are defined once in `src/styles/global.css`: a raw palette per theme (`:r
 `border-line`, `text-accent`…). Components use only these tokens, so they follow the theme without
 `dark:` variants. The chosen theme is stored in `localStorage` and applied before the first paint.
 
-The PCB background is a seamless SVG tile per theme. To regenerate it (optionally with another seed):
-
-```sh
-python3 tools/gen_pcb.py [seed]
-```
+The PCB backdrop (`src/components/PcbBackground.astro`) is inline SVG: trace clusters anchored to the corners
+and edges of the viewport, with the center left clear for the content. Each cluster is drawn in units of 1px on
+a 1536px-wide screen and scaled by `--pcb-unit`; its colors are the `pcb-*` theme tokens, blended into the
+background by `--pcb-strength` (lower is subtler). When editing it, keep
+traces at 0°, 90° or 45° and avoid crossings, as on a real board.
 
 ## Deployment
 

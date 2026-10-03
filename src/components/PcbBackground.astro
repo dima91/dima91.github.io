@@ -1,0 +1,112 @@
+---
+// Fixed PCB-style backdrop: trace clusters anchored to the corners and edges, center left clear.
+// Each cluster is drawn in its own coordinate space (1 unit = 1px on a 1536px-wide screen) and sized
+// with --pcb-unit (global.css), so the drawing scales with the viewport. Colours are theme tokens.
+const p = {
+  line: 'fill-none stroke-pcb stroke-[1.25]',
+  hi: 'fill-none stroke-pcb-hi stroke-[1.25]',
+  ring: 'fill-none stroke-pcb stroke-[1.5]',
+  fill: 'fill-pcb',
+  chip: 'fill-pcb-chip stroke-pcb stroke-[1.5]',
+  icon: 'fill-none stroke-pcb stroke-[2.5]',
+};
+
+/** A square chip of side 52 centred on (cx, cy), with `n` pins per side. */
+function chip(cx: number, cy: number, n = 5) {
+  const half = 26;
+  const offsets = Array.from({ length: n }, (_, i) => (i - (n - 1) / 2) * 8);
+  const pins = offsets
+    .map(
+      (o) =>
+        `M${cx + o} ${cy - half - 10}v8M${cx + o} ${cy + half + 2}v8M${cx - half - 10} ${cy + o}h8M${cx + half + 2} ${cy + o}h8`,
+    )
+    .join('');
+  return { x: cx - half, y: cy - half, pins };
+}
+
+const tlChip = chip(110, 160);
+const brChip = chip(513, 230);
+---
+
+<div
+  aria-hidden="true"
+  class="pointer-events-none fixed inset-0 -z-1 overflow-hidden bg-[radial-gradient(ellipse_at_58%_38%,var(--color-pcb-glow),transparent_60%),radial-gradient(ellipse_at_center,transparent_55%,var(--color-pcb-vignette))] [&_*]:transition-[fill,stroke] [&_*]:duration-300"
+>
+  <!-- top left -->
+  <svg
+    viewBox="0 0 760 660"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="absolute top-0 left-0 h-auto w-[calc(760*var(--pcb-unit))]"
+  >
+    <!-- left loop into a bottom pin of the chip -->
+    <path class={p.line} d="M0 18L58 60V104L12 150V222H100L126 196" />
+    <!-- 45° trace to the top edge (x + y = 358); the horizontal run starts to its right -->
+    <path class={p.hi} d="M146 152H206L358 0" />
+    <path class={p.line} d="M380 76H475L506 45H704" />
+    <circle class={p.fill} cx="374" cy="76" r="2.5" />
+    <circle class={p.fill} cx="710" cy="45" r="5" />
+    <!-- from the left edge, parallel to the trace above -->
+    <path class={p.hi} d="M72 274H132L200 206H340L366 180" />
+    <circle class={p.fill} cx="72" cy="274" r="3.5" />
+    <rect class={p.chip} x={tlChip.x} y={tlChip.y} width="52" height="52" rx="4" />
+    <path class={p.line} d={tlChip.pins} />
+  </svg>
+
+  <!-- top right -->
+  <svg
+    viewBox="0 0 300 240"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="absolute top-0 right-0 hidden h-auto w-[calc(300*var(--pcb-unit))] sm:block"
+  >
+    <path class={p.hi} d="M128 0L72 56" />
+    <circle class={p.fill} cx="68" cy="62" r="4" />
+    <!-- cloud with up/down arrows -->
+    <path class={p.icon} d="M188 138h-6a14 14 0 0 1-2-27.8 20 20 0 0 1 38.6-4.6A14 14 0 0 1 236 138h-6" />
+    <path class={p.icon} d="M203 140v-18l-5 5M203 122l5 5M213 122v18l-5-5M213 140l5-5" />
+  </svg>
+
+  <!-- right edge -->
+  <svg
+    viewBox="0 0 220 400"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="absolute top-[26%] right-0 hidden h-auto w-[calc(220*var(--pcb-unit))] md:block"
+  >
+    <path class={p.line} d="M199 52V142L144 197V306L122 328" />
+    <circle class={p.fill} cx="119" cy="331" r="5" />
+    {[131, 145, 159].map((y) => <rect class={p.fill} x="96" y={y} width="32" height="6" rx="1" />)}
+  </svg>
+
+  <!-- bottom left -->
+  <svg
+    viewBox="0 0 640 270"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="absolute bottom-0 left-0 hidden h-auto w-[calc(640*var(--pcb-unit))] sm:block"
+  >
+    <path class={p.line} d="M185 164H395L440 208H610" />
+    <circle class={p.fill} cx="185" cy="164" r="2.5" />
+    <circle class={p.fill} cx="616" cy="208" r="5" />
+    <!-- </> -->
+    <path class={p.icon} d="M78 142L62 158L78 174M106 142L122 158L106 174M98 136L86 180" />
+  </svg>
+
+  <!-- bottom right -->
+  <svg
+    viewBox="0 0 676 384"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="absolute right-0 bottom-0 h-auto w-[calc(676*var(--pcb-unit))]"
+  >
+    <path class={p.line} d="M408 25L442 60V110L368 186H154" />
+    <circle class={p.ring} cx="407" cy="25" r="5" />
+    <circle class={p.fill} cx="148" cy="188" r="5" />
+    <path class={p.hi} d="M430 220V176L520 86H676" />
+    <path class={p.line} d="M505 268V310L560 365V384M521 268V302L582 364V384" />
+    <path class={p.hi} d="M549 222H580L676 126" />
+    <rect class={p.chip} x={brChip.x} y={brChip.y} width="52" height="52" rx="4" />
+    <path class={p.line} d={brChip.pins} />
+  </svg>
+</div>
