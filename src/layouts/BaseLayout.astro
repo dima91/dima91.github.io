@@ -1,0 +1,68 @@
+---
+import { Font } from 'astro:assets';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <script is:inline>
+      /* Before first paint: apply the saved theme (default dark) and flag JS for reveal animations. */
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        try {
+          d.dataset.theme = localStorage.getItem('theme') === 'light' ? 'light' : 'dark';
+        } catch (e) {}
+      })();
+    </script>
+    <Font cssVariable="--font-bricolage" preload />
+    <Font cssVariable="--font-plex-sans" preload />
+    <Font cssVariable="--font-plex-mono" />
+  </head>
+  <!-- before: is the fixed PCB-trace layer behind everything; the tile is seamless (tools/gen_pcb.py) -->
+  <body
+    class="bg-bg font-sans text-[16px] leading-[1.65] text-ink antialiased transition-colors duration-300 before:pointer-events-none before:fixed before:inset-0 before:-z-1 before:bg-(image:--pcb) before:bg-size-[960px] before:bg-top sm:text-[17px]"
+  >
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in');
+              io.unobserve(entry.target);
+            }
+          }
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
+      );
+
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>
