@@ -1,4 +1,5 @@
 ---
+import hero from '../assets/hero.png';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getLang, useTranslations } from '../i18n/ui';
 import Contact from './Contact.astro';
@@ -11,7 +12,11 @@ import Skills from './Skills.astro';
 const t = useTranslations(getLang(Astro.currentLocale));
 ---
 
-<BaseLayout title={t('meta.title')} description={t('meta.description')}>
+<BaseLayout
+  title={t('meta.title')}
+  description={t('meta.description')}
+  image={{ src: hero, alt: t('hero.alt') }}
+>
   <Hero />
   <Experience />
   <Projects />

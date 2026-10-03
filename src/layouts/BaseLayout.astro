@@ -1,5 +1,5 @@
 ---
-import { Font } from 'astro:assets';
+import { Font, getImage } from 'astro:assets';
 import { getAbsoluteLocaleUrl } from 'astro:i18n';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -9,11 +9,22 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description: string;
+  /** Social preview image: cropped to 1200×630, transparency flattened on the dark background. */
+  image: { src: ImageMetadata; alt: string };
 }
 
-const { title, description } = Astro.props;
+const { title, description, image } = Astro.props;
 const lang = getLang(Astro.currentLocale);
+const canonical = getAbsoluteLocaleUrl(lang);
 const ogLocale: Record<Lang, string> = { en: 'en_US', it: 'it_IT' };
+const ogImage = await getImage({
+  src: image.src,
+  format: 'jpeg',
+  width: 1200,
+  height: 630,
+  fit: 'cover',
+  background: '#0a0d13',
+});
 ---
 
 <!doctype html>
@@ -25,16 +36,23 @@ const ogLocale: Record<Lang, string> = { en: 'en_US', it: 'it_IT' };
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={getAbsoluteLocaleUrl(lang)} />
+    <link rel="canonical" href={canonical} />
     {
       (Object.keys(languages) as Lang[]).map((code) => (
         <link rel="alternate" hreflang={code} href={getAbsoluteLocaleUrl(code)} />
       ))
     }
     <link rel="alternate" hreflang="x-default" href={getAbsoluteLocaleUrl(defaultLang)} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:locale" content={ogLocale[lang]} />
+    <meta property="og:image" content={new URL(ogImage.src, Astro.site)} />
+    <meta property="og:image:width" content={String(ogImage.attributes.width)} />
+    <meta property="og:image:height" content={String(ogImage.attributes.height)} />
+    <meta property="og:image:alt" content={image.alt} />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <script is:inline>

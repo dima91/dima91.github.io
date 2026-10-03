@@ -7,7 +7,7 @@ export type SectionId = 'about' | 'experience' | 'projects' | 'skills' | 'public
  */
 export const sections: SectionId[] = ['about', 'experience', 'projects', 'skills', 'publications', 'contact'];
 
-const numbered = sections.filter((id) => id !== 'about');
+const numbered: SectionId[] = sections.filter((id) => id !== 'about');
 
 export function sectionNumber(id: SectionId): string {
   return String(numbered.indexOf(id) + 1).padStart(2, '0');
