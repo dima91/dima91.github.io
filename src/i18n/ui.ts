@@ -28,12 +28,17 @@ const en = {
   'hero.bio2':
     'Today I develop software for diagnostic laboratory instruments at DIESSE and lead the development of a desktop application for ESR exam management, including DAS-28 parameter calculation.',
   'hero.cta.contact': 'Get in touch',
+  'hero.cta.experience': 'See experience',
   'hero.alt':
     'Illustration of a laptop showing a system status dashboard, connected to server racks on one side and to an ESP32 board with sensors and LEDs on the other',
   'stats.label': 'Highlights',
   'stats.years': 'years building software',
   'stats.pubs': 'IEEE publications',
   'stats.plugtests': 'ETSI Plugtests',
+
+  'exp.title': 'Experience',
+  'exp.present': 'Present',
+  'edu.title': 'Education',
 
   'contact.title': 'Let’s talk',
   'contact.lead':
@@ -67,12 +72,17 @@ const it: Record<UiKey, string> = {
   'hero.bio2':
     'Oggi sviluppo il software per gli strumenti diagnostici di laboratorio di DIESSE e guido lo sviluppo di un’applicazione desktop per la gestione degli esami VES, incluso il calcolo del parametro DAS-28.',
   'hero.cta.contact': 'Contattami',
+  'hero.cta.experience': 'Vedi esperienza',
   'hero.alt':
     'Illustrazione di un laptop che mostra una dashboard di stato del sistema, collegato da un lato a rack di server e dall’altro a una scheda ESP32 con sensori e LED',
   'stats.label': 'In evidenza',
   'stats.years': 'anni di sviluppo',
   'stats.pubs': 'pubblicazioni IEEE',
   'stats.plugtests': 'ETSI Plugtests',
+
+  'exp.title': 'Esperienza',
+  'exp.present': 'Presente',
+  'edu.title': 'Formazione',
 
   'contact.title': 'Parliamone',
   'contact.lead':
@@ -90,4 +100,17 @@ export function getLang(locale: string | undefined): Lang {
 
 export function useTranslations(lang: Lang) {
   return (key: UiKey) => ui[lang][key];
+}
+
+/** Translatable text from a content collection (see `text` in src/content.config.ts). */
+export type Localized = string | Record<Lang, string>;
+
+export function l(value: Localized, lang: Lang): string {
+  return typeof value === 'string' ? value : value[lang];
+}
+
+/** "2021-09", "2024-06" → "09/2021 — 06/2024"; no end means "Present". */
+export function formatPeriod(start: string, end: string | undefined, lang: Lang): string {
+  const month = (ym: string) => ym.split('-').reverse().join('/');
+  return `${month(start)} — ${end ? month(end) : ui[lang]['exp.present']}`;
 }

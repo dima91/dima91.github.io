@@ -1,0 +1,67 @@
+---
+import { getCollection } from 'astro:content';
+import { formatPeriod, getLang, l, useTranslations } from '../i18n/ui';
+import Card from './Card.astro';
+import Section from './Section.astro';
+
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+
+const byStartDesc = (a: { data: { start: string } }, b: { data: { start: string } }) =>
+  b.data.start.localeCompare(a.data.start);
+const jobs = (await getCollection('experience')).sort(byStartDesc);
+const degrees = (await getCollection('education')).sort(byStartDesc);
+
+const dates = 'font-mono text-[13px] tracking-[.02em] text-accent';
+---
+
+<Section id="experience" title={t('exp.title')}>
+  <ol class="flex flex-col">
+    {
+      jobs.map(({ data: job }) => (
+        <li class="reveal grid grid-cols-1 gap-2.5 border-t border-line py-8.5 text-shadow-halo first:border-t-0 first:pt-0 md:grid-cols-[220px_minmax(0,1fr)] md:gap-[clamp(16px,4vw,48px)]">
+          <div class="flex items-baseline gap-3 md:flex-col md:items-stretch md:gap-0.5">
+            <span class={dates}>{formatPeriod(job.start, job.end, lang)}</span>
+            <span class="text-[14px] text-ink-soft">{job.place}</span>
+          </div>
+          <div>
+            <h3 class="font-head text-[26px] leading-[1.2] font-bold tracking-[-.02em]">{l(job.role, lang)}</h3>
+            <p class="mt-0.5 mb-3.5 font-medium text-ink-soft">{l(job.company, lang)}</p>
+            <ul class="flex max-w-[74ch] flex-col gap-2">
+              {job.bullets.map((bullet) => (
+                <li class="relative pl-5 text-[16px] text-ink-soft before:absolute before:top-[.72em] before:left-0 before:h-[1.5px] before:w-2 before:bg-accent-bright">
+                  {bullet.lead && (
+                    <>
+                      <b class="font-semibold text-ink">{l(bullet.lead, lang)}:</b>{' '}
+                    </>
+                  )}
+                  {l(bullet.text, lang)}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+
+  <div class="reveal mt-[clamp(40px,6vw,72px)] border-t border-line pt-10">
+    <h3 class="mb-6.5 font-mono text-[14px] font-medium tracking-[.08em] text-ink-soft uppercase text-shadow-halo">
+      {t('edu.title')}
+    </h3>
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      {
+        degrees.map(({ data: degree }) => (
+          <Card as="article" class="p-6.5">
+            <span class={dates}>{formatPeriod(degree.start, degree.end, lang)}</span>
+            <h4 class="mt-2 mb-1 font-head text-[21px] leading-[1.25] font-bold tracking-[-.01em]">
+              {l(degree.degree, lang)}
+            </h4>
+            <p class="mt-0.5 mb-3.5 font-medium text-ink-soft">{l(degree.school, lang)}</p>
+            <p class="mt-3 text-[15px] text-ink-soft">{l(degree.note, lang)}</p>
+          </Card>
+        ))
+      }
+    </div>
+  </div>
+</Section>

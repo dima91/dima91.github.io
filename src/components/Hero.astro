@@ -37,6 +37,7 @@ const btn =
     <p class="mt-3.5 max-w-[52ch] text-ink-soft text-shadow-halo">{t('hero.bio2')}</p>
     <div class="mt-8 mb-10 flex flex-wrap gap-3">
       <a href="#contact" class:list={[btn, 'bg-ink text-bg']}>{t('hero.cta.contact')}</a>
+      <a href="#experience" class:list={[btn, 'text-ink hover:bg-ink hover:text-bg']}>{t('hero.cta.experience')}</a>
     </div>
     <ul aria-label={t('stats.label')} class="flex flex-wrap gap-x-[clamp(24px,4vw,44px)] gap-y-3.5 border-t border-line pt-6.5">
       {
@@ -50,7 +51,9 @@ const btn =
     </ul>
   </div>
 
-  <!-- before: soft cyan/magenta glow behind the illustration -->
+  <!-- before: soft cyan/magenta glow behind the illustration.
+       The img keeps the source aspect ratio: resized variants round their height, which would
+       shift everything below by a fraction of a pixel depending on the srcset candidate. -->
   <div
     class="relative order-first before:absolute before:inset-[10%_5%_5%_12%] before:bg-[radial-gradient(closest-side,var(--color-glow-a),var(--color-glow-b)_60%,transparent_80%)] before:blur-[30px] md:order-none"
   >
@@ -60,6 +63,7 @@ const btn =
       widths={[480, 720, 960, 1440, hero.width]}
       sizes="(min-width: 961px) min(56vw, 720px), 100vw"
       priority
+      style={`aspect-ratio: ${hero.width} / ${hero.height}`}
       class="relative w-full animate-float motion-reduce:animate-none md:-mr-[15%] md:w-[115%] md:max-w-none"
     />
   </div>
