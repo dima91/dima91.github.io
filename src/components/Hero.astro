@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import hero from '../assets/hero.png';
 import { getLang, useTranslations, type UiKey } from '../i18n/ui';
 
@@ -7,7 +8,7 @@ const t = useTranslations(getLang(Astro.currentLocale));
 
 const stats: { value: string; label: UiKey }[] = [
   { value: '9+', label: 'stats.years' },
-  { value: '4', label: 'stats.pubs' },
+  { value: String((await getCollection('publications')).length), label: 'stats.pubs' },
   { value: '3', label: 'stats.plugtests' },
 ];
 

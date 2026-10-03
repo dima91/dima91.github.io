@@ -72,4 +72,16 @@ const skills = defineCollection({
   }),
 });
 
-export const collections = { contacts, experience, education, projects, skills };
+const publications = defineCollection({
+  loader: file('src/content/publications.yaml'),
+  schema: z.object({
+    order: z.number().int(),
+    year: z.number().int(),
+    title: z.string(),
+    authors: z.string(),
+    venue: z.string(),
+    doi: z.string().regex(/^10\.\d{4,}\/\S+$/, 'expected a DOI like 10.1109/…'),
+  }),
+});
+
+export const collections = { contacts, experience, education, projects, skills, publications };
