@@ -18,7 +18,7 @@ const isLone = (i: number) => skills.length % 2 === 1 && i === skills.length - 1
     {
       skills.map(({ data: skill }, i) => (
         <Card as="article" hover class:list={['reveal p-7', isLone(i) && 'sm:col-span-2']}>
-          <h3 class="mb-4 font-head text-[22px] font-bold tracking-[-.01em]">{l(skill.title, lang)}</h3>
+          <h3 class="mb-4 font-head text-[22px] font-medium tracking-[-.01em]">{l(skill.title, lang)}</h3>
           {skill.groups.map((group, gi) => (
             <>
               {group.tier && (

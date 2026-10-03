@@ -1,7 +1,7 @@
 ---
 interface Props {
   items: string[];
-  /** Inverted, high-emphasis chips. */
+  /** Higher emphasis: stronger tint and full-contrast text. */
   strong?: boolean;
   class?: string;
 }
@@ -13,10 +13,7 @@ const { items, strong = false, class: className } = Astro.props;
   {
     items.map((item) => (
       <li
-        class:list={[
-          'rounded-full border px-3 py-1.25 text-[14px]',
-          strong ? 'border-ink bg-ink text-bg' : 'border-line bg-bg',
-        ]}
+        class:list={['rounded-full px-3.25 py-1.5 text-[14px]', strong ? 'bg-chip-strong text-ink' : 'bg-chip text-ink-soft']}
       >
         {item}
       </li>

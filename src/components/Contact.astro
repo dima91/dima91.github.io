@@ -10,7 +10,7 @@ const contacts = (await getCollection('contacts')).sort((a, b) => a.data.order -
 
 <Section id="contact" title={t('contact.title')}>
   <div class="reveal">
-    <p class="mb-10 max-w-[26ch] font-head text-lead text-shadow-halo">{t('contact.lead')}</p>
+    <p class="mb-10 max-w-[26ch] font-head text-lead">{t('contact.lead')}</p>
     <ul class="grid max-w-[760px] grid-cols-1 gap-3.5 sm:grid-cols-2">
       {
         contacts.map(({ data }) => {

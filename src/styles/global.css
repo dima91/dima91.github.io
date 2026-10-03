@@ -18,6 +18,9 @@
   --ink: #eef1f6;
   --ink-soft: #9ba5b6;
   --line: #222a37;
+  /* chip fills: 6% and 14% of the ink over a card, as solid colours */
+  --chip: #1e232c;
+  --chip-strong: #30353d;
   --accent: #22d3ee;
   --accent-bright: #22d3ee;
   --magenta: #f0468a;
@@ -27,8 +30,8 @@
   --pcb-chip: color-mix(in srgb, #1d2928 var(--pcb-strength), var(--bg));
   --pcb-glow: rgba(120, 150, 150, .07);
   --pcb-vignette: rgba(0, 0, 0, .4);
-  --glow-a: rgba(34, 211, 238, .22);
-  --glow-b: rgba(240, 70, 138, .12);
+  --glow-a: rgba(34, 211, 238, .11);
+  --glow-b: rgba(240, 70, 138, .06);
 }
 
 :root[data-theme="light"] {
@@ -38,6 +41,8 @@
   --ink: #12151c;
   --ink-soft: #4a5261;
   --line: #e4e6ea;
+  --chip: #f1f1f1;
+  --chip-strong: #dededf;
   --accent: #0e7490;
   --accent-bright: #06b6d4;
   --magenta: #d6246e;
@@ -47,8 +52,8 @@
   --pcb-chip: color-mix(in srgb, #ccd7d2 var(--pcb-strength), var(--bg));
   --pcb-glow: rgba(255, 255, 255, .35);
   --pcb-vignette: rgba(70, 90, 80, .08);
-  --glow-a: rgba(6, 182, 212, .20);
-  --glow-b: rgba(214, 36, 110, .08);
+  --glow-a: rgba(6, 182, 212, .10);
+  --glow-b: rgba(214, 36, 110, .04);
 }
 
 /* Semantic tokens: utilities follow the theme through the raw palette above. */
@@ -59,6 +64,8 @@
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
   --color-line: var(--line);
+  --color-chip: var(--chip);
+  --color-chip-strong: var(--chip-strong);
   --color-accent: var(--accent);
   --color-accent-bright: var(--accent-bright);
   --color-magenta: var(--magenta);
@@ -75,9 +82,6 @@
   --font-sans: var(--font-plex-sans);
   --font-mono: var(--font-plex-mono);
   --font-head: var(--font-bricolage);
-
-  /* keeps text readable where a PCB trace runs right behind it */
-  --text-shadow-halo: 0 0 2px var(--bg), 0 0 8px var(--bg), 0 0 16px var(--bg);
 }
 
 @theme {
