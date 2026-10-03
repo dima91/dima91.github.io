@@ -20,6 +20,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          # the CV PDFs in public/ are tracked with Git LFS: without this the site would serve the pointer files
+          lfs: true
       - name: Install, build and upload site
         uses: withastro/action@v6
 
