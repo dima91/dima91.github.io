@@ -1,3 +1,4 @@
 src/assets/hero.png filter=lfs diff=lfs merge=lfs -text
+public/apple-touch-icon.png filter=lfs diff=lfs merge=lfs -text
 public/apple-touch-icon.png text !filter !merge !diff
 src/assets/hero.png text !filter !merge !diff
