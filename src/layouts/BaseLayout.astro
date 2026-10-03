@@ -6,25 +6,33 @@ import Footer from '../components/Footer.astro';
 import { defaultLang, getLang, languages, type Lang } from '../i18n/ui';
 import '../styles/global.css';
 
-interface Props {
-  title: string;
-  description: string;
-  /** Social preview image: cropped to 1200×630, transparency flattened on the dark background. */
-  image: { src: ImageMetadata; alt: string };
-}
+type Props = { title: string; description: string } & (
+  | {
+      errorPage?: false;
+      /** Social preview image: cropped to 1200×630, transparency flattened on the dark background. */
+      image: { src: ImageMetadata; alt: string };
+    }
+  | {
+      /** Error pages: not indexed, no canonical/hreflang/Open Graph, header without nav and language toggle. */
+      errorPage: true;
+      image?: never;
+    }
+);
 
-const { title, description, image } = Astro.props;
+const { title, description, errorPage = false, image } = Astro.props;
 const lang = getLang(Astro.currentLocale);
 const canonical = getAbsoluteLocaleUrl(lang);
 const ogLocale: Record<Lang, string> = { en: 'en_US', it: 'it_IT' };
-const ogImage = await getImage({
-  src: image.src,
-  format: 'jpeg',
-  width: 1200,
-  height: 630,
-  fit: 'cover',
-  background: '#0a0d13',
-});
+const ogImage =
+  image &&
+  (await getImage({
+    src: image.src,
+    format: 'jpeg',
+    width: 1200,
+    height: 630,
+    fit: 'cover',
+    background: '#0a0d13',
+  }));
 ---
 
 <!doctype html>
@@ -36,23 +44,28 @@ const ogImage = await getImage({
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {errorPage && <meta name="robots" content="noindex" />}
     {
-      (Object.keys(languages) as Lang[]).map((code) => (
-        <link rel="alternate" hreflang={code} href={getAbsoluteLocaleUrl(code)} />
-      ))
+      image && ogImage && (
+        <>
+          <link rel="canonical" href={canonical} />
+          {(Object.keys(languages) as Lang[]).map((code) => (
+            <link rel="alternate" hreflang={code} href={getAbsoluteLocaleUrl(code)} />
+          ))}
+          <link rel="alternate" hreflang="x-default" href={getAbsoluteLocaleUrl(defaultLang)} />
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content={canonical} />
+          <meta property="og:title" content={title} />
+          <meta property="og:description" content={description} />
+          <meta property="og:locale" content={ogLocale[lang]} />
+          <meta property="og:image" content={new URL(ogImage.src, Astro.site)} />
+          <meta property="og:image:width" content={String(ogImage.attributes.width)} />
+          <meta property="og:image:height" content={String(ogImage.attributes.height)} />
+          <meta property="og:image:alt" content={image.alt} />
+          <meta name="twitter:card" content="summary_large_image" />
+        </>
+      )
     }
-    <link rel="alternate" hreflang="x-default" href={getAbsoluteLocaleUrl(defaultLang)} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonical} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:locale" content={ogLocale[lang]} />
-    <meta property="og:image" content={new URL(ogImage.src, Astro.site)} />
-    <meta property="og:image:width" content={String(ogImage.attributes.width)} />
-    <meta property="og:image:height" content={String(ogImage.attributes.height)} />
-    <meta property="og:image:alt" content={image.alt} />
-    <meta name="twitter:card" content="summary_large_image" />
     <!-- sizes on the .ico makes browsers that support SVG pick favicon.svg -->
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -67,19 +80,24 @@ const ogImage = await getImage({
         } catch (e) {}
       })();
     </script>
+    <slot name="head" />
     <Font cssVariable="--font-bricolage" preload />
     <Font cssVariable="--font-plex-sans" preload />
     <Font cssVariable="--font-plex-mono" />
   </head>
   <!-- before: is the fixed PCB-trace layer behind everything; the tile is seamless (tools/gen_pcb.py) -->
   <body
-    class="bg-bg font-sans text-[16px] leading-[1.65] text-ink antialiased transition-colors duration-300 before:pointer-events-none before:fixed before:inset-0 before:-z-1 before:bg-(image:--pcb) before:bg-size-[960px] before:bg-top sm:text-[17px]"
+    class:list={[
+      'bg-bg font-sans text-[16px] leading-[1.65] text-ink antialiased transition-colors duration-300 before:pointer-events-none before:fixed before:inset-0 before:-z-1 before:bg-(image:--pcb) before:bg-size-[960px] before:bg-top sm:text-[17px]',
+      // short pages: keep the footer at the bottom of the viewport
+      errorPage && 'flex min-h-dvh flex-col',
+    ]}
   >
-    <Header />
-    <main>
+    <Header nav={!errorPage} />
+    <main class:list={[errorPage && 'flex-1']}>
       <slot />
     </main>
-    <Footer />
+    <Footer backToTop={!errorPage} />
 
     <script>
       const io = new IntersectionObserver(

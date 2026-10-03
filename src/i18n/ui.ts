@@ -52,6 +52,12 @@ const en = {
     'Open to interesting projects in embedded, IoT and desktop software. The quickest way to reach me is email.',
 
   'footer.top': 'Back to top ↑',
+
+  'notFound.eyebrow': 'Error 404',
+  'notFound.title': 'Page not found',
+  'notFound.lead': 'This trace leads nowhere.',
+  'notFound.text': 'The page you’re looking for doesn’t exist or has been moved.',
+  'notFound.home': 'Back to home',
 } as const;
 
 export type UiKey = keyof typeof en;
@@ -103,6 +109,12 @@ const it: Record<UiKey, string> = {
     'Aperto a progetti interessanti in ambito embedded, IoT e software desktop. Il modo più rapido per raggiungermi è l’email.',
 
   'footer.top': 'Torna su ↑',
+
+  'notFound.eyebrow': 'Errore 404',
+  'notFound.title': 'Pagina non trovata',
+  'notFound.lead': 'Questa pista non porta da nessuna parte.',
+  'notFound.text': 'La pagina che cerchi non esiste o è stata spostata.',
+  'notFound.home': 'Torna alla home',
 };
 
 const ui: Record<Lang, Record<UiKey, string>> = { en, it };

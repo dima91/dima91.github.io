@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import hero from '../assets/hero.png';
 import { getLang, useTranslations, type UiKey } from '../i18n/ui';
+import Button from './Button.astro';
 
 const t = useTranslations(getLang(Astro.currentLocale));
 
@@ -11,9 +12,6 @@ const stats: { value: string; label: UiKey }[] = [
   { value: String((await getCollection('publications')).length), label: 'stats.pubs' },
   { value: '3', label: 'stats.plugtests' },
 ];
-
-const btn =
-  'inline-block rounded-full border-[1.5px] border-ink px-6.5 py-3.25 text-[16px] font-medium transition-[translate,background-color,color] duration-200 hover:-translate-y-0.5';
 ---
 
 <section
@@ -37,8 +35,8 @@ const btn =
     <p class="max-w-[52ch] text-ink-soft text-shadow-halo">{t('hero.bio1')}</p>
     <p class="mt-3.5 max-w-[52ch] text-ink-soft text-shadow-halo">{t('hero.bio2')}</p>
     <div class="mt-8 mb-10 flex flex-wrap gap-3">
-      <a href="#contact" class:list={[btn, 'bg-ink text-bg']}>{t('hero.cta.contact')}</a>
-      <a href="#experience" class:list={[btn, 'text-ink hover:bg-ink hover:text-bg']}>{t('hero.cta.experience')}</a>
+      <Button href="#contact">{t('hero.cta.contact')}</Button>
+      <Button href="#experience" variant="ghost">{t('hero.cta.experience')}</Button>
     </div>
     <ul aria-label={t('stats.label')} class="flex flex-wrap gap-x-[clamp(24px,4vw,44px)] gap-y-3.5 border-t border-line pt-6.5">
       {

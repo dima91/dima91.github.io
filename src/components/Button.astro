@@ -1,0 +1,21 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'a'> & {
+  /** primary: filled with the ink color; ghost: outlined, fills on hover. */
+  variant?: 'primary' | 'ghost';
+};
+
+const { variant = 'primary', class: className, ...rest } = Astro.props;
+---
+
+<a
+  class:list={[
+    'inline-block rounded-full border-[1.5px] border-ink px-6.5 py-3.25 text-[16px] font-medium transition-[translate,background-color,color] duration-200 hover:-translate-y-0.5',
+    variant === 'primary' ? 'bg-ink text-bg' : 'text-ink hover:bg-ink hover:text-bg',
+    className,
+  ]}
+  {...rest}
+>
+  <slot />
+</a>

@@ -4,10 +4,16 @@ import { getLang, useTranslations } from '../i18n/ui';
 import LangToggle from './LangToggle.astro';
 import ThemeToggle from './ThemeToggle.astro';
 
+interface Props {
+  /** Section links and language toggle; off on pages outside the home page (404). */
+  nav?: boolean;
+}
+
+const { nav = true } = Astro.props;
 const t = useTranslations(getLang(Astro.currentLocale));
 
-const links = sections.filter((id) => id !== 'contact');
-const hasContact = sections.includes('contact');
+const links = nav ? sections.filter((id) => id !== 'contact') : [];
+const hasContact = nav && sections.includes('contact');
 ---
 
 <header
@@ -39,7 +45,7 @@ const hasContact = sections.includes('contact');
         )
       }
       <li class="ml-auto flex items-center gap-2">
-        <LangToggle />
+        {nav && <LangToggle />}
         <ThemeToggle />
       </li>
     </ul>
