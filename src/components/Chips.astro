@@ -1,0 +1,25 @@
+---
+interface Props {
+  items: string[];
+  /** Inverted, high-emphasis chips. */
+  strong?: boolean;
+  class?: string;
+}
+
+const { items, strong = false, class: className } = Astro.props;
+---
+
+<ul class:list={['flex flex-wrap gap-2', className]}>
+  {
+    items.map((item) => (
+      <li
+        class:list={[
+          'rounded-full border px-3 py-1.25 text-[14px]',
+          strong ? 'border-ink bg-ink text-bg' : 'border-line bg-bg',
+        ]}
+      >
+        {item}
+      </li>
+    ))
+  }
+</ul>

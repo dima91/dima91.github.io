@@ -1,0 +1,77 @@
+---
+import { getCollection } from 'astro:content';
+import { codeHostName } from '../data/codeHosts';
+import { getLang, l, useTranslations } from '../i18n/ui';
+import Card from './Card.astro';
+import Chips from './Chips.astro';
+import Section from './Section.astro';
+import CalendarArt from './project-art/CalendarArt.astro';
+import DevserverArt from './project-art/DevserverArt.astro';
+import WeddingArt from './project-art/WeddingArt.astro';
+
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const arts = { calendar: CalendarArt, wedding: WeddingArt, devserver: DevserverArt };
+
+/**
+ * Column span of card `i` out of `n`, so the grid never ends with a lone card.
+ * Two columns (sm): an odd last card takes the whole row.
+ * Six tracks (lg): cards span 2 (three per row); the last row is rebalanced with span 3:
+ * 3k+2 → last two share the row, 3k+1 → last four become two rows of two.
+ */
+function spanFor(i: number, n: number): string {
+  const sm = n % 2 === 1 && i === n - 1 ? 'sm:col-span-2' : '';
+  let lg = 'lg:col-span-2';
+  if (n === 1) lg = 'lg:col-span-full';
+  else if ((n % 3 === 2 && i >= n - 2) || (n % 3 === 1 && i >= n - 4)) lg = 'lg:col-span-3';
+  return `${sm} ${lg}`;
+}
+---
+
+<Section id="projects" title={t('proj.title')}>
+  <div class="grid grid-cols-1 gap-5.5 sm:grid-cols-2 lg:grid-cols-6">
+    {
+      projects.map(({ data: project }, i) => {
+        const Art = arts[project.art];
+        return (
+          <Card as="article" hover class={`reveal flex flex-col p-7.5 ${spanFor(i, projects.length)}`}>
+            <div
+              aria-hidden="true"
+              class="-mx-7.5 -mt-7.5 mb-6.5 h-32 rounded-t-[calc(var(--radius-card)-1px)] border-b border-line bg-bg bg-[radial-gradient(var(--color-line)_1px,transparent_1px)] bg-size-[14px_14px]"
+            >
+              <svg
+                viewBox="0 0 320 120"
+                preserveAspectRatio="xMidYMid meet"
+                focusable="false"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="block size-full"
+              >
+                <Art />
+              </svg>
+            </div>
+            <p class="mb-3.5 font-mono text-[12px] tracking-[.08em] text-accent uppercase">{l(project.tag, lang)}</p>
+            <h3 class="mb-3 font-head text-[26px] leading-[1.15] font-bold tracking-[-.02em] wrap-anywhere">
+              {project.name}
+            </h3>
+            <p class="mb-5.5 text-[16px] text-ink-soft">{l(project.description, lang)}</p>
+            {project.tech && <Chips items={project.tech} class="mb-7" />}
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener"
+              class="mt-auto self-start border-b-[1.5px] border-accent-bright pb-0.5 text-[15px] font-medium transition-colors duration-200 hover:text-accent"
+            >
+              <span>
+                {t('proj.view')} {codeHostName(project.link)}
+              </span>{' '}
+              <span aria-hidden="true">↗</span>
+            </a>
+          </Card>
+        );
+      })
+    }
+  </div>
+</Section>

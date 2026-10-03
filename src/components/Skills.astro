@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import { getLang, l, useTranslations } from '../i18n/ui';
+import Card from './Card.astro';
+import Chips from './Chips.astro';
+import Section from './Section.astro';
+
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+
+const skills = (await getCollection('skills')).sort((a, b) => a.data.order - b.data.order);
+// two columns: a lone last card takes the whole row
+const isLone = (i: number) => skills.length % 2 === 1 && i === skills.length - 1;
+---
+
+<Section id="skills" title={t('skills.title')}>
+  <div class="grid grid-cols-1 gap-5.5 sm:grid-cols-2">
+    {
+      skills.map(({ data: skill }, i) => (
+        <Card as="article" hover class:list={['reveal p-7', isLone(i) && 'sm:col-span-2']}>
+          <h3 class="mb-4 font-head text-[22px] font-bold tracking-[-.01em]">{l(skill.title, lang)}</h3>
+          {skill.groups.map((group, gi) => (
+            <>
+              {group.tier && (
+                <p
+                  class:list={[
+                    'mb-2 font-mono text-[12px] tracking-[.08em] text-ink-soft uppercase',
+                    gi > 0 && 'mt-3.5',
+                  ]}
+                >
+                  {l(group.tier, lang)}
+                </p>
+              )}
+              <Chips items={group.items.map((item) => l(item, lang))} strong={group.strong} />
+            </>
+          ))}
+          {skill.desc && <p class="mt-4 text-[15px] text-ink-soft">{l(skill.desc, lang)}</p>}
+        </Card>
+      ))
+    }
+  </div>
+</Section>

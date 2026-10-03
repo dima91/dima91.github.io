@@ -1,0 +1,42 @@
+# "Outside work" cards, rendered by `order` (Astro stores entries sorted by id).
+# `icon` picks one of the icons in src/assets/icons/. A card can end with chips (`items`)
+# or with a link to another section of the page (`link.section`, a section id).
+- id: tinkering
+  order: 1
+  icon: chip
+  title:
+    en: Tinkering
+    it: Costruire
+  description:
+    en: Personal software and hardware projects born out of curiosity, which sometimes turn into libraries or small products.
+    it: Progetti software e hardware personali nati per curiosità, che a volte diventano librerie o piccoli prodotti.
+  link:
+    section: projects
+    label:
+      en: See my projects
+      it: Vedi i miei progetti
+
+- id: on-the-move
+  order: 2
+  icon: pulse
+  title:
+    en: On the move
+    it: In movimento
+  description:
+    en: Sport in most of its forms, and partner dancing.
+    it: Sport in quasi tutte le sue forme, e balli di coppia.
+  items:
+    - en: Skiing
+      it: Sci
+    - en: Running
+      it: Corsa
+    - en: Cycling
+      it: Ciclismo
+    - en: Swimming
+      it: Nuoto
+    - en: Volleyball
+      it: Pallavolo
+    - en: Beach volleyball
+      it: Beach volley
+    - en: Partner dancing
+      it: Balli di coppia
