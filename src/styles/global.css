@@ -13,45 +13,45 @@
 /* Raw palette: dark is the default theme. */
 :root {
   color-scheme: dark;
-  --bg: #0a0d13;
-  --surface: #11161f;
+  --bg: #181d26;
+  --surface: #1f2632;
   --ink: #eef1f6;
   --ink-soft: #9ba5b6;
-  --line: #222a37;
+  --line: #303a4a;
   /* chip fills: 6% and 14% of the ink over a card, as solid colours */
-  --chip: #1e232c;
-  --chip-strong: #30353d;
+  --chip: #2b323e;
+  --chip-strong: #3c424d;
   --accent: #22d3ee;
   --accent-bright: #22d3ee;
   --magenta: #f0468a;
-  --nav-bg: rgba(10, 13, 19, 0.8);
+  --nav-bg: rgba(24, 29, 38, 0.8);
   --pcb-line: color-mix(in srgb, #4b665f var(--pcb-strength), var(--bg));
   --pcb-hi: color-mix(in srgb, #8ccfae var(--pcb-strength), var(--bg));
   --pcb-chip: color-mix(in srgb, #1d2928 var(--pcb-strength), var(--bg));
   --pcb-glow: rgba(120, 150, 150, .07);
-  --pcb-vignette: rgba(0, 0, 0, .4);
+  --pcb-vignette: rgba(0, 0, 0, .2);
   --glow-a: rgba(34, 211, 238, .11);
   --glow-b: rgba(240, 70, 138, .06);
 }
 
 :root[data-theme="light"] {
   color-scheme: light;
-  --bg: #fafaf8;
-  --surface: #ffffff;
+  --bg: #eaeae6;
+  --surface: #f0f0ed;
   --ink: #12151c;
   --ink-soft: #4a5261;
-  --line: #e4e6ea;
-  --chip: #f1f1f1;
-  --chip-strong: #dededf;
-  --accent: #0e7490;
+  --line: #d4d6da;
+  --chip: #e3e3e0;
+  --chip-strong: #d1d1d0;
+  --accent: #0c6882;
   --accent-bright: #06b6d4;
   --magenta: #d6246e;
-  --nav-bg: rgba(250, 250, 248, 0.82);
+  --nav-bg: rgba(234, 234, 230, 0.82);
   --pcb-line: color-mix(in srgb, #b4c1bb var(--pcb-strength), var(--bg));
   --pcb-hi: color-mix(in srgb, #4f6b6f var(--pcb-strength), var(--bg));
   --pcb-chip: color-mix(in srgb, #ccd7d2 var(--pcb-strength), var(--bg));
   --pcb-glow: rgba(255, 255, 255, .35);
-  --pcb-vignette: rgba(70, 90, 80, .08);
+  --pcb-vignette: rgba(70, 90, 80, .05);
   --glow-a: rgba(6, 182, 212, .10);
   --glow-b: rgba(214, 36, 110, .04);
 }
