@@ -9,6 +9,7 @@ const t = useTranslations(other);
 ---
 
 <a
+  data-lang-toggle
   href={getRelativeLocaleUrl(other)}
   hreflang={other}
   lang={other}
@@ -25,3 +26,24 @@ const t = useTranslations(other);
     ))
   }
 </a>
+
+<script>
+  // Keep the reader's place: the other language opens on the section currently in view.
+  // (The section, not the scroll offset: the two languages have different text lengths.)
+  const toggle = document.querySelector<HTMLAnchorElement>('[data-lang-toggle]')!;
+
+  function pointAtCurrentSection() {
+    const line = window.innerHeight * 0.4;
+    let current = '';
+    for (const section of document.querySelectorAll<HTMLElement>('main section[id]')) {
+      if (section.getBoundingClientRect().top <= line) current = section.id;
+    }
+    const url = new URL(toggle.href);
+    url.hash = window.scrollY > 0 ? current : '';
+    toggle.href = url.href;
+  }
+
+  // auxclick: middle-click / open in new tab
+  toggle.addEventListener('click', pointAtCurrentSection);
+  toggle.addEventListener('auxclick', pointAtCurrentSection);
+</script>
