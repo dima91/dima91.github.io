@@ -43,6 +43,8 @@ const en = {
   'proj.title': 'Projects',
   'proj.view': 'View on',
 
+  'skills.title': 'Skills',
+
   'contact.title': 'Let’s talk',
   'contact.lead':
     'Open to interesting projects in embedded, IoT and desktop software. The quickest way to reach me is email.',
@@ -89,6 +91,8 @@ const it: Record<UiKey, string> = {
 
   'proj.title': 'Progetti',
   'proj.view': 'Vedi su',
+
+  'skills.title': 'Competenze',
 
   'contact.title': 'Parliamone',
   'contact.lead':

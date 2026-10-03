@@ -5,6 +5,7 @@ import Contact from './Contact.astro';
 import Experience from './Experience.astro';
 import Hero from './Hero.astro';
 import Projects from './Projects.astro';
+import Skills from './Skills.astro';
 
 const t = useTranslations(getLang(Astro.currentLocale));
 ---
@@ -13,5 +14,6 @@ const t = useTranslations(getLang(Astro.currentLocale));
   <Hero />
   <Experience />
   <Projects />
+  <Skills />
   <Contact />
 </BaseLayout>

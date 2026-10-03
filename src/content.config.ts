@@ -56,4 +56,20 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { contacts, experience, education, projects };
+const skills = defineCollection({
+  loader: file('src/content/skills.yaml'),
+  schema: z.object({
+    order: z.number().int(),
+    title: text,
+    groups: z.array(
+      z.object({
+        tier: text.optional(),
+        strong: z.boolean().default(false),
+        items: z.array(text),
+      }),
+    ),
+    desc: text.optional(),
+  }),
+});
+
+export const collections = { contacts, experience, education, projects, skills };
