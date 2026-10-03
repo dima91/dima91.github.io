@@ -30,6 +30,7 @@ const en = {
     'Today I develop software for diagnostic laboratory instruments at DIESSE and lead the development of a desktop application for ESR exam management, including DAS-28 parameter calculation.',
   'hero.cta.contact': 'Get in touch',
   'hero.cta.experience': 'See experience',
+  'hero.cta.cv': 'Download CV',
   'hero.alt':
     'Illustration of a laptop showing a system status dashboard, connected to server racks on one side and to an ESP32 board with sensors and LEDs on the other',
   'stats.label': 'Highlights',
@@ -91,6 +92,7 @@ const it: Record<UiKey, string> = {
     'Oggi sviluppo il software per gli strumenti diagnostici di laboratorio di DIESSE e guido lo sviluppo di un’applicazione desktop per la gestione degli esami VES, incluso il calcolo del parametro DAS-28.',
   'hero.cta.contact': 'Contattami',
   'hero.cta.experience': 'Vedi esperienza',
+  'hero.cta.cv': 'Scarica il CV',
   'hero.alt':
     'Illustrazione di un laptop che mostra una dashboard di stato del sistema, collegato da un lato a rack di server e dall’altro a una scheda ESP32 con sensori e LED',
   'stats.label': 'In evidenza',

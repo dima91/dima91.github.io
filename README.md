@@ -30,7 +30,7 @@ src/
 ├── pages/                index.astro (en) and it/index.astro, both render Home.astro
 ├── styles/global.css     Tailwind theme: palette, breakpoints, type scale
 └── assets/               hero image and icons, optimized at build time
-public/                   favicons
+public/                   favicons and the downloadable CV (one PDF per language)
 ```
 
 ## Editing content
@@ -58,6 +58,9 @@ a message pointing at the field.
 - **Project illustrations**: a project's `art` picks one of the components in `src/components/project-art/`.
   To add one, create a component there using the shared paint classes in `paint.ts`, then register it in
   `Projects.astro` and in the `art` enum of the schema.
+- **CV**: the hero's download button serves `public/CV_EN-Luca_Di_Mauro.pdf` on the English page and
+  `public/CV_IT-Luca_Di_Mauro.pdf` on the Italian one. To update a CV, replace its file keeping the name, so the
+  link stays the same.
 
 ## Theme
 
