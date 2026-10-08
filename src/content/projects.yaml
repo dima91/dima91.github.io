@@ -1,6 +1,10 @@
 # Projects, rendered by `order` (Astro stores entries sorted by id).
 # `art` picks the banner illustration (src/components/project-art/).
 # `link` must point to GitHub or GitLab: the link label is derived from it.
+# `images` (optional) lists photos kept in src/assets/projects/: the first one replaces the illustration.
+#   images:
+#     - src: ../assets/projects/<id>/<file>.png   # relative to this file
+#       alt: <text>                               # or { en, it }
 - id: pi-touch-date
   order: 1
   name: pi-touch-date

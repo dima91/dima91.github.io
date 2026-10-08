@@ -44,6 +44,8 @@ const en = {
 
   'proj.title': 'Projects',
   'proj.view': 'View on',
+  // followed by the project name
+  'proj.photos': 'View photos of',
 
   'skills.title': 'Skills',
   'skills.spoken': 'Spoken languages: Italian (native) · English (B2)',
@@ -107,6 +109,7 @@ const it: Record<UiKey, string> = {
 
   'proj.title': 'Progetti',
   'proj.view': 'Vedi su',
+  'proj.photos': 'Guarda le foto di',
 
   'skills.title': 'Competenze',
   'skills.spoken': 'Lingue parlate: Italiano (madrelingua) · Inglese (B2)',

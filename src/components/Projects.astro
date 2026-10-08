@@ -1,4 +1,5 @@
 ---
+import { getImage, Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import { codeHostName } from '../data/codeHosts';
 import { getLang, l, useTranslations } from '../i18n/ui';
@@ -12,46 +13,82 @@ import WeddingArt from './project-art/WeddingArt.astro';
 const lang = getLang(Astro.currentLocale);
 const t = useTranslations(lang);
 
-const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const projects = await Promise.all(
+  (await getCollection('projects'))
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async ({ data }) => {
+      const cover = data.images?.[0];
+      // the banner links to its photo at full size, capped at 1920px
+      const full = cover && (await getImage({ src: cover.src, width: Math.min(cover.src.width, 1920) }));
+      return { ...data, cover, full };
+    }),
+);
 const arts = { calendar: CalendarArt, wedding: WeddingArt, devserver: DevserverArt };
 
+/** Banner across the top of a card: the project's first photo or, without photos, its illustration. */
+const banner = '-mx-7.5 -mt-7.5 mb-6.5 h-32 rounded-t-[calc(var(--radius-card)-1px)] border-b border-line bg-bg';
+
 /**
- * Column span of card `i` out of `n`, so the grid never ends with a lone card.
+ * Layout of card `i` out of `n`: its column span, so the grid never ends with a lone card, and the
+ * width of the card at each breakpoint, as the `sizes` of a banner photo.
  * Two columns (sm): an odd last card takes the whole row.
  * Six tracks (lg): cards span 2 (three per row); the last row is rebalanced with span 3:
  * 3k+2 → last two share the row, 3k+1 → last four become two rows of two.
  */
-function spanFor(i: number, n: number): string {
-  const sm = n % 2 === 1 && i === n - 1 ? 'sm:col-span-2' : '';
-  let lg = 'lg:col-span-2';
-  if (n === 1) lg = 'lg:col-span-full';
-  else if ((n % 3 === 2 && i >= n - 2) || (n % 3 === 1 && i >= n - 4)) lg = 'lg:col-span-3';
-  return `${sm} ${lg}`;
+function layoutFor(i: number, n: number): { span: string; sizes: string } {
+  const wide = n % 2 === 1 && i === n - 1;
+  // widths inside the 1240px page with its 56px gutters and 22px gaps
+  let lg = { span: 'lg:col-span-2', width: '362px' };
+  if (n === 1) lg = { span: 'lg:col-span-full', width: '1128px' };
+  else if ((n % 3 === 2 && i >= n - 2) || (n % 3 === 1 && i >= n - 4)) lg = { span: 'lg:col-span-3', width: '554px' };
+  return {
+    span: `${wide ? 'sm:col-span-2' : ''} ${lg.span}`,
+    sizes: `(min-width: 1101px) ${lg.width}, (min-width: 721px) ${wide ? '100vw' : '50vw'}, 100vw`,
+  };
 }
 ---
 
 <Section id="projects" title={t('proj.title')}>
   <div class="grid grid-cols-1 gap-5.5 sm:grid-cols-2 lg:grid-cols-6">
     {
-      projects.map(({ data: project }, i) => {
+      projects.map((project, i) => {
         const Art = arts[project.art];
+        const { span, sizes } = layoutFor(i, projects.length);
         return (
-          <Card as="article" hover class={`reveal flex flex-col p-7.5 ${spanFor(i, projects.length)}`}>
-            <div
-              aria-hidden="true"
-              class="-mx-7.5 -mt-7.5 mb-6.5 h-32 rounded-t-[calc(var(--radius-card)-1px)] border-b border-line bg-bg bg-[radial-gradient(var(--color-line)_1px,transparent_1px)] bg-size-[14px_14px]"
-            >
-              <svg
-                viewBox="0 0 320 120"
-                preserveAspectRatio="xMidYMid meet"
-                focusable="false"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="block size-full"
+          <Card as="article" hover class={`reveal flex flex-col p-7.5 ${span}`}>
+            {project.cover && project.full ? (
+              <a
+                href={project.full.src}
+                target="_blank"
+                rel="noopener"
+                aria-label={`${t('proj.photos')} ${project.name}`}
+                class:list={[banner, 'group/photo block cursor-zoom-in overflow-hidden rounded-b-none']}
               >
-                <Art />
-              </svg>
-            </div>
+                <Image
+                  src={project.cover.src}
+                  alt={l(project.cover.alt, lang)}
+                  widths={[480, 960, 1440]}
+                  sizes={sizes}
+                  class="size-full object-cover transition-transform duration-300 group-hover/photo:scale-103 motion-reduce:transition-none"
+                />
+              </a>
+            ) : (
+              <div
+                aria-hidden="true"
+                class:list={[banner, 'bg-[radial-gradient(var(--color-line)_1px,transparent_1px)] bg-size-[14px_14px]']}
+              >
+                <svg
+                  viewBox="0 0 320 120"
+                  preserveAspectRatio="xMidYMid meet"
+                  focusable="false"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="block size-full"
+                >
+                  <Art />
+                </svg>
+              </div>
+            )}
             <p class="mb-3.5 font-mono text-[12px] tracking-[.08em] text-accent uppercase">{l(project.tag, lang)}</p>
             <h3 class="mb-3 font-head text-[26px] leading-[1.15] font-medium tracking-[-.02em] wrap-anywhere">
               {project.name}
