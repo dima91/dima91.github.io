@@ -45,17 +45,21 @@ const education = defineCollection({
 
 const projects = defineCollection({
   loader: file('src/content/projects.yaml'),
-  schema: z.object({
-    order: z.number().int(),
-    name: z.string(),
-    tag: text,
-    description: text,
-    tech: z.array(z.string()).optional(),
-    link: z
-      .url()
-      .refine((url) => codeHostName(url) !== undefined, `expected a link to ${Object.keys(codeHosts).join(' or ')}`),
-    art: z.enum(['calendar', 'wedding', 'devserver']),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      order: z.number().int(),
+      name: z.string(),
+      tag: text,
+      description: text,
+      tech: z.array(z.string()).optional(),
+      link: z
+        .url()
+        .refine((url) => codeHostName(url) !== undefined, `expected a link to ${Object.keys(codeHosts).join(' or ')}`)
+        .optional(),
+      art: z.enum(['calendar', 'wedding', 'server-setup']),
+      /** Photos, with `src` relative to the YAML file: the first one replaces the banner illustration. */
+      images: z.array(z.object({ src: image(), alt: text })).optional(),
+    }),
 });
 
 const skills = defineCollection({

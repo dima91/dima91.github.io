@@ -129,6 +129,15 @@
     @media (prefers-reduced-motion: reduce) {
       scroll-behavior: auto;
     }
+
+    /* A modal dialog (the photo preview) locks the page behind it. The scrollbar gutter stays,
+       so the page does not shift sideways. No overscroll effects either: a swipe through the
+       photos would otherwise start the browser's "back" gesture. */
+    &:has(dialog:modal) {
+      overflow: hidden;
+      scrollbar-gutter: stable;
+      overscroll-behavior: none;
+    }
   }
 
   :focus-visible {

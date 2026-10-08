@@ -42,8 +42,15 @@ const en = {
   'exp.present': 'Present',
   'edu.title': 'Education',
 
-  'proj.title': 'Projects',
+  'proj.title': 'Side projects',
   'proj.view': 'View on',
+  // followed by the project name
+  'proj.photos': 'View photos of',
+
+  'lightbox.label': 'Photo preview',
+  'lightbox.close': 'Close',
+  'lightbox.prev': 'Previous photo',
+  'lightbox.next': 'Next photo',
 
   'skills.title': 'Skills',
   'skills.spoken': 'Spoken languages: Italian (native) · English (B2)',
@@ -105,8 +112,14 @@ const it: Record<UiKey, string> = {
   'exp.present': 'Presente',
   'edu.title': 'Formazione',
 
-  'proj.title': 'Progetti',
+  'proj.title': 'Progetti personali',
   'proj.view': 'Vedi su',
+  'proj.photos': 'Guarda le foto di',
+
+  'lightbox.label': 'Anteprima foto',
+  'lightbox.close': 'Chiudi',
+  'lightbox.prev': 'Foto precedente',
+  'lightbox.next': 'Foto successiva',
 
   'skills.title': 'Competenze',
   'skills.spoken': 'Lingue parlate: Italiano (madrelingua) · Inglese (B2)',

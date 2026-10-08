@@ -1,6 +1,10 @@
 # Projects, rendered by `order` (Astro stores entries sorted by id).
 # `art` picks the banner illustration (src/components/project-art/).
-# `link` must point to GitHub or GitLab: the link label is derived from it.
+# `link` (optional) must point to GitHub or GitLab: the link label is derived from it.
+# `images` (optional) lists photos kept in src/assets/projects/: the first one replaces the illustration.
+#   images:
+#     - src: ../assets/projects/<id>/<file>.png   # relative to this file
+#       alt: <text>                               # or { en, it }
 - id: pi-touch-date
   order: 1
   name: pi-touch-date
@@ -11,6 +15,19 @@
   tech: [C#, .NET 8, Avalonia UI, ReactiveUI, Raspberry Pi, GitHub Actions]
   link: https://github.com/dima91/pi-touch-date
   art: calendar
+  images:
+    - src: ../assets/projects/pi_touch_date/pi_touch_date-main.png
+      alt:
+        en: Main screen with the day and date in large type and, below, the time, the current weather and the night mode and settings buttons
+        it: Schermata principale con giorno e data a grandi caratteri e, sotto, l'ora, il meteo attuale e i pulsanti per modalità notte e impostazioni
+    - src: ../assets/projects/pi_touch_date/pi_touch_date-weather.png
+      alt:
+        en: Weather panel with the current conditions in Siena, the day's high and low, and the forecast for night, morning, afternoon and evening
+        it: Pannello meteo con le condizioni attuali a Siena, massima e minima del giorno e le previsioni per notte, mattina, pomeriggio e sera
+    - src: ../assets/projects/pi_touch_date/pi_touch_date-settings.png
+      alt:
+        en: Settings panel with the screen brightness, the automatic night mode between sunset and sunrise, and the restart and shut down buttons
+        it: Pannello impostazioni con la luminosità dello schermo, la modalità notte automatica tra tramonto e alba e i pulsanti per riavviare e arrestare
 
 - id: my-favourite-wedding
   order: 2
@@ -22,15 +39,54 @@
     en: "A web platform to organize a wedding: guest access with printed invitation codes, expense tracking with receipts, and photo uploads from guests, stored on self-hosted S3-compatible storage."
     it: "Una piattaforma web per organizzare un matrimonio: accesso degli invitati con codici stampati sugli inviti, gestione delle spese con ricevute e caricamento delle foto da parte degli ospiti, su storage S3-compatibile self-hosted."
   tech: [React, Mantine, Express.js, PostgreSQL, Docker Compose, Garage / MinIO]
-  link: https://gitlab.com/dima.91/my-favourite-wedding
   art: wedding
+  images:
+    - src: ../assets/projects/my_favourite_wedding/my_favourite_wedding-main_page.png
+      alt:
+        en: Dashboard of the couple's private area, with the countdown to the ceremony, confirmed and pending guests, expenses, tasks and a calendar
+        it: Riepilogo dell'area riservata degli sposi, con il conto alla rovescia per la cerimonia, invitati confermati e in attesa, spese, attività e calendario
+    - src: ../assets/projects/my_favourite_wedding/my_favourite_wedding-details.png
+      alt:
+        en: Wedding details dialog with the couple's names, the date, and the time and place of the ceremony and of the reception
+        it: Finestra dei dettagli del matrimonio con i nomi degli sposi, la data, e l'ora e il luogo di cerimonia e ricevimento
+    - src: ../assets/projects/my_favourite_wedding/my_favourite_wedding-guests.png
+      alt:
+        en: Guest list with the response rate, filters by group and status and, for each guest, what they attend, their table and their reply
+        it: Elenco degli invitati con il tasso di risposta, i filtri per gruppo e stato e, per ogni invitato, a cosa partecipa, il tavolo e la risposta
+    - src: ../assets/projects/my_favourite_wedding/my_favourite_wedding-guest_settings.png
+      alt:
+        en: Side panel for editing a guest, with household, group, reply, overnight stay, dietary needs and assigned table
+        it: Pannello laterale per modificare un invitato, con nucleo familiare, gruppo, risposta, pernottamento, esigenze alimentari e tavolo assegnato
+    - src: ../assets/projects/my_favourite_wedding/my_favourite_wedding-lodgings.png
+      alt:
+        en: Lodgings page with the beds taken in each location and the guests assigned to each room
+        it: Pagina degli alloggi con i posti occupati in ogni location e gli invitati assegnati a ogni camera
+    - src: ../assets/projects/my_favourite_wedding/my_favourite_wedding-reception.png
+      alt:
+        en: Reception page with the tables laid out on a floor plan, each showing its taken seats
+        it: Pagina del ricevimento con i tavoli disposti su una piantina, ognuno con i posti occupati
+    - src: ../assets/projects/my_favourite_wedding/my_favourite_wedding-schedule.png
+      alt:
+        en: Schedule page with a timeline of the events over the wedding days, from the rehearsal dinner to the cutting of the cake
+        it: Pagina del programma con la linea del tempo degli eventi nei giorni del matrimonio, dalla cena di prova al taglio della torta
+    - src: ../assets/projects/my_favourite_wedding/my_favourite_wedding-RSVP_1.png
+      alt:
+        en: The invitation as a guest sees it, with the couple's names, the date, the countdown and the button to confirm attendance
+        it: L'invito come lo vede un invitato, con i nomi degli sposi, la data, il conto alla rovescia e il pulsante per confermare la presenza
+    - src: ../assets/projects/my_favourite_wedding/my_favourite_wedding-RSVP_2.png
+      alt:
+        en: Guest page with the ceremony and reception venues, the replies of the guest's group and the table where they will sit
+        it: Pagina dell'invitato con i luoghi di cerimonia e ricevimento, le risposte del proprio gruppo e il tavolo a cui siederà
 
-- id: devserver
+- id: server-setup
   order: 3
-  name: devserver
-  tag: Repository
+  name: server-setup
+  tag:
+    en: Server automation
+    it: Automazione server
   description:
-    en: Source code available on GitLab.
-    it: Codice sorgente disponibile su GitLab.
-  link: https://gitlab.com/dima.91/devserver
-  art: devserver
+    en: "Bash scripts that set up a fresh Debian or Ubuntu server in staged runs: new user, hardened SSH, firewall, swap and Docker. They then start a Compose stack with a self-configuring reverse proxy, Portainer, CrowdSec and a personal VPN."
+    it: "Script Bash che configurano un server Debian o Ubuntu appena creato in più fasi: nuovo utente, SSH protetto, firewall, swap e Docker. Poi avviano uno stack Compose con un reverse proxy che si configura da solo, Portainer, CrowdSec e una VPN personale."
+  tech: [Bash, Docker Compose, Nginx Proxy Manager, CrowdSec, Portainer, UFW]
+  link: https://github.com/dima91/server-setup
+  art: server-setup
