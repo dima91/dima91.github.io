@@ -1,0 +1,33 @@
+# Publications, rendered newest year first; `order` breaks ties within the same year.
+# The DOI link (https://doi.org/…) is built from `doi`.
+- id: vtc2021-offloading
+  order: 1
+  year: 2021
+  title: "Securing vehicular computation offloading: A distributed ledger-based approach"
+  authors: D. Lattuca et al.
+  venue: IEEE 94th Vehicular Technology Conference (VTC2021-Fall), Norman, OK, USA
+  doi: 10.1109/VTC2021-Fall52928.2021.9625368
+
+- id: jstqe2021-radar
+  order: 2
+  year: 2021
+  title: A Photonics-Assisted Multi-Band MIMO Radar Network for the Port of the Future
+  authors: G. Serafino et al.
+  venue: IEEE Journal of Selected Topics in Quantum Electronics, vol. 27, no. 6
+  doi: 10.1109/JSTQE.2021.3092880
+
+- id: ojvt2021-seaport
+  order: 3
+  year: 2021
+  title: Securing Seaport Logistic Vehicles Using a Distributed Ledger-Based Credential Management System
+  authors: A. Tesei et al.
+  venue: IEEE Open Journal of Vehicular Technology, vol. 2, pp. 162–179
+  doi: 10.1109/OJVT.2021.3067209
+
+- id: vtc2018-iota-vpki
+  order: 1
+  year: 2018
+  title: "IOTA-VPKI: A DLT-Based and Resource Efficient Vehicular Public Key Infrastructure"
+  authors: A. Tesei, L. Di Mauro, M. Falcitelli, S. Noto, P. Pagano
+  venue: IEEE 88th VTC-Fall, Chicago, IL, USA
+  doi: 10.1109/VTCFall.2018.8690769

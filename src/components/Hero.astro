@@ -1,0 +1,75 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import hero from '../assets/hero.png';
+import { getLang, useTranslations, type Lang, type UiKey } from '../i18n/ui';
+import Button from './Button.astro';
+
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+
+/** One PDF per language, served as is from public/ so the links stay stable across builds. */
+const cv: Record<Lang, string> = {
+  en: '/CV_EN-Luca_Di_Mauro.pdf',
+  it: '/CV_IT-Luca_Di_Mauro.pdf',
+};
+
+const stats: { value: string; label: UiKey }[] = [
+  { value: '9+', label: 'stats.years' },
+  { value: String((await getCollection('publications')).length), label: 'stats.pubs' },
+  { value: '3', label: 'stats.plugtests' },
+];
+---
+
+<section
+  id="about"
+  class="mx-auto grid max-w-page grid-cols-1 items-center gap-[clamp(24px,4vw,64px)] overflow-x-clip px-gutter pt-[clamp(32px,6vw,72px)] pb-[clamp(56px,8vw,110px)] md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]"
+>
+  <div>
+    <h1 class="font-head text-display font-bold whitespace-nowrap">Luca<br />Di Mauro</h1>
+    <p
+      class="mt-5.5 mb-6.5 inline-block bg-linear-to-r/srgb from-accent-bright to-magenta bg-clip-text font-head text-role font-medium text-transparent"
+    >
+      Software Engineer
+    </p>
+    <p class="max-w-[52ch] text-ink-soft">{t('hero.bio1')}</p>
+    <p class="mt-3.5 max-w-[52ch] text-ink-soft">{t('hero.bio2')}</p>
+    <!-- The three buttons share one row only with the short CV label, and only from a 440px-wide row:
+         below that the CV button wraps to its own row anyway, so it keeps the full label. -->
+    <div class="@container mt-8 mb-10 flex flex-wrap gap-3">
+      <Button href="#contact">{t('hero.cta.contact')}</Button>
+      <Button href="#experience" variant="ghost">{t('hero.cta.experience')}</Button>
+      <Button href={cv[lang]} variant="ghost" download type="application/pdf" aria-label={t('hero.cta.cv')}>
+        <span class="@min-[440px]:hidden">{t('hero.cta.cv')}</span><span class="hidden @min-[440px]:inline">CV</span>{' '}<span aria-hidden="true">↓</span>
+      </Button>
+    </div>
+    <ul aria-label={t('stats.label')} class="flex flex-wrap gap-x-[clamp(24px,4vw,44px)] gap-y-3.5 border-t border-line pt-6.5">
+      {
+        stats.map(({ value, label }) => (
+          <li class="flex flex-col">
+            <strong class="font-head text-[34px] leading-[1.1] tracking-[-.02em]">{value}</strong>
+            <span class="text-[13px] text-ink-soft">{t(label)}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <!-- before: soft cyan/magenta glow behind the illustration. On the dark theme the illustration is
+       slightly dimmed and desaturated, so its neon colours do not overpower the page.
+       The img keeps the source aspect ratio: resized variants round their height, which would
+       shift everything below by a fraction of a pixel depending on the srcset candidate. -->
+  <div
+    class="relative order-first before:absolute before:inset-[10%_5%_5%_12%] before:bg-[radial-gradient(closest-side,var(--color-glow-a),var(--color-glow-b)_60%,transparent_80%)] before:blur-[30px] md:order-none md:w-[90%] md:justify-self-center"
+  >
+    <Image
+      src={hero}
+      alt={t('hero.alt')}
+      widths={[480, 720, 960, 1440, hero.width]}
+      sizes="(min-width: 961px) min(56vw, 720px), 100vw"
+      priority
+      style={`aspect-ratio: ${hero.width} / ${hero.height}`}
+      class="relative w-full animate-float motion-reduce:animate-none dark:brightness-92 dark:saturate-88"
+    />
+  </div>
+</section>

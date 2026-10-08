@@ -1,0 +1,88 @@
+# Work experience, rendered newest first (by `start`).
+# Text fields take a plain string, or { en, it } when the translation differs.
+# `end` omitted = current job. A bullet's optional `lead` is rendered in bold before the text.
+- id: diesse
+  role: Software Specialist
+  company: DIESSE — Diagnostica Senese S.p.A.
+  place: Monteriggioni
+  start: 2024-06
+  bullets:
+    - lead:
+        en: Embedded software developer
+        it: Sviluppatore software embedded
+      text:
+        en: software for laboratory instruments and related applications.
+        it: software per strumenti di laboratorio e applicazioni correlate.
+    - lead: Project leader
+      text:
+        en: leading the development of a desktop application for ESR exam management.
+        it: gestione della realizzazione di un’applicazione desktop per la gestione degli esami ES
+    - text:
+        en: Planning, developing and maintaining new features for instruments based on custom embedded boards.
+        it: Progettazione, sviluppo e manutenzione di nuove funzionalità per strumenti basati su schede embedded custom.
+    - text:
+        en: Developing PC utility applications and functional testing of diagnostic instruments.
+        it: Sviluppo di applicazioni di utilità per PC e test funzionali degli strumenti diagnostici.
+
+- id: seco
+  role: Technical Product Specialist
+  company: SECO
+  place: Siena
+  start: 2021-09
+  end: 2024-06
+  bullets:
+    - text:
+        en: Embedded software, web application development and product management.
+        it: Sviluppo software embedded e applicazioni web, product management.
+    - text:
+        en: Companion applications for the company's boards in C++ and Python with Qt and PySide.
+        it: Applicazioni a corredo delle schede dell’azienda in C++ e Python con Qt e PySide.
+    - text:
+        en: Web applications with React and React-Bootstrap for the proprietary cloud platform CLEA.
+        it: Applicazioni web con React e React-Bootstrap per la piattaforma cloud proprietaria CLEA.
+    - text:
+        en: Technical support for the UDOO community; proofs of concept shown at Embedded World 2022 and 2023.
+        it: Supporto tecnico alla community UDOO; proof of concept presentati a Embedded World 2022 e 2023.
+
+- id: sssa
+  role: Software Engineer
+  company: Scuola Superiore Sant’Anna
+  place: Pisa
+  start: 2020-01
+  end: 2021-08
+  bullets:
+    - text:
+        en: Technical manager and team leader of the development group; administrator of the GitLab and oneM2M platforms used to store sensor data.
+        it: Technical manager e team leader del gruppo di sviluppo; amministratore delle piattaforme GitLab e oneM2M per l’archiviazione dei dati dei sensori.
+    - text:
+        en: Development of Docker images for cross-platform testing, deployment and compilation of ETSI ITS-G5 stack components on custom embedded boards.
+        it: Creazione immagini Docker per test, deployment e compilazione multipiattaforma dei componenti dello stack ETSI ITS-G5 su schede embedded custom.
+    - text:
+        en: Cretiom of OpenLayers-based framework for prototyping containerized web apps that visualize geo-referenced oneM2M data, born within the European Corealis project.
+        it: Creazione di un framework basato su OpenLayers per prototipare applicazioni web containerizzate che visualizzano dati georeferenziati oneM2M, nato nell’ambito del progetto europeo Corealis.
+    - text:
+        en: Took part in the second ETSI C-V2X Plugtests (July 2020).
+        it: Partecipazione al secondo ETSI C-V2X Plugtests (luglio 2020).
+
+- id: cnit
+  role: Junior Researcher
+  company: Consorzio Nazionale Interuniversitario per le Telecomunicazioni
+  place: Pisa
+  start: 2017-02
+  end: 2019-12
+  bullets:
+    - lead:
+        en: Embedded and IoT software developer
+        it: Sviluppatore embedded e IoT
+      text:
+        en: software architecture and use cases for the European Autopilot project.
+        it: architettura software e casi d’uso per il progetto europeo Autopilot.
+    - text:
+        en: Testing and validation of Debian and network interfaces on ARM-based boards.
+        it: Test e validazione di Debian e delle interfacce di rete su schede ARM.
+    - text:
+        en: Development of PID controller in C on an Altera FPGA to stabilize the output of a laser transmitter.
+        it: Sviluppo di un controllore PID in C su FPGA Altera per stabilizzare l’uscita di un trasmettitore laser.
+    - text:
+        en: Implemented the security layer of the ETSI ITS-G5 stack; took part in ETSI CMS Plugtests 6 and 7 (2019).
+        it: Implementazione del livello di sicurezza dello stack ETSI ITS-G5; partecipazione agli ETSI CMS Plugtests 6 e 7 (2019).

@@ -1,0 +1,121 @@
+---
+import { Font, getImage } from 'astro:assets';
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PcbBackground from '../components/PcbBackground.astro';
+import { defaultLang, getLang, languages, type Lang } from '../i18n/ui';
+import '../styles/global.css';
+
+type Props = { title: string; description: string } & (
+  | {
+      errorPage?: false;
+      /** Social preview image: cropped to 1200×630, transparency flattened on the dark background. */
+      image: { src: ImageMetadata; alt: string };
+    }
+  | {
+      /** Error pages: not indexed, no canonical/hreflang/Open Graph, header without nav and language toggle. */
+      errorPage: true;
+      image?: never;
+    }
+);
+
+const { title, description, errorPage = false, image } = Astro.props;
+const lang = getLang(Astro.currentLocale);
+const canonical = getAbsoluteLocaleUrl(lang);
+const ogLocale: Record<Lang, string> = { en: 'en_US', it: 'it_IT' };
+const ogImage =
+  image &&
+  (await getImage({
+    src: image.src,
+    format: 'jpeg',
+    width: 1200,
+    height: 630,
+    fit: 'cover',
+    background: '#0a0d13',
+  }));
+---
+
+<!doctype html>
+<html lang={lang} data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {errorPage && <meta name="robots" content="noindex" />}
+    {
+      image && ogImage && (
+        <>
+          <link rel="canonical" href={canonical} />
+          {(Object.keys(languages) as Lang[]).map((code) => (
+            <link rel="alternate" hreflang={code} href={getAbsoluteLocaleUrl(code)} />
+          ))}
+          <link rel="alternate" hreflang="x-default" href={getAbsoluteLocaleUrl(defaultLang)} />
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content={canonical} />
+          <meta property="og:title" content={title} />
+          <meta property="og:description" content={description} />
+          <meta property="og:locale" content={ogLocale[lang]} />
+          <meta property="og:image" content={new URL(ogImage.src, Astro.site)} />
+          <meta property="og:image:width" content={String(ogImage.attributes.width)} />
+          <meta property="og:image:height" content={String(ogImage.attributes.height)} />
+          <meta property="og:image:alt" content={image.alt} />
+          <meta name="twitter:card" content="summary_large_image" />
+        </>
+      )
+    }
+    <!-- sizes on the .ico makes browsers that support SVG pick favicon.svg -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script is:inline>
+      /* Before first paint: apply the saved theme (default dark) and flag JS for reveal animations. */
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        try {
+          d.dataset.theme = localStorage.getItem('theme') === 'light' ? 'light' : 'dark';
+        } catch (e) {}
+      })();
+    </script>
+    <slot name="head" />
+    <Font cssVariable="--font-bricolage" preload />
+    <Font cssVariable="--font-plex-sans" preload />
+    <Font cssVariable="--font-plex-mono" />
+  </head>
+  <!-- #top is the footer's "back to top" target: it cannot be the sticky header, which is always in view -->
+  <body
+    id="top"
+    class:list={[
+      'bg-bg font-sans text-[16px] leading-[1.65] text-ink antialiased transition-colors duration-300 sm:text-[17px]',
+      // short pages: keep the footer at the bottom of the viewport
+      errorPage && 'flex min-h-dvh flex-col',
+    ]}
+  >
+    <PcbBackground />
+    <Header nav={!errorPage} />
+    <main class:list={[errorPage && 'flex-1']}>
+      <slot />
+    </main>
+    <Footer backToTop={!errorPage} />
+
+    <script>
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in');
+              io.unobserve(entry.target);
+            }
+          }
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
+      );
+
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>

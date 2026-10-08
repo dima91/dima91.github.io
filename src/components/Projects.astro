@@ -1,0 +1,142 @@
+---
+import { getImage, Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import { codeHostName } from '../data/codeHosts';
+import type { LightboxPhoto } from '../data/lightbox';
+import { getLang, l, useTranslations } from '../i18n/ui';
+import Card from './Card.astro';
+import Chips from './Chips.astro';
+import Lightbox from './Lightbox.astro';
+import Section from './Section.astro';
+import CalendarArt from './project-art/CalendarArt.astro';
+import ServerSetupArt from './project-art/ServerSetupArt.astro';
+import WeddingArt from './project-art/WeddingArt.astro';
+
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+
+/** A photo for the full-page preview: at most 1920px wide, with a half-size variant for small screens. */
+async function preview(src: ImageMetadata, alt: string): Promise<LightboxPhoto> {
+  const width = Math.min(src.width, 1920);
+  const image = await getImage({ src, width, widths: [960, 1920] });
+  return {
+    src: image.src,
+    srcset: image.srcSet.attribute,
+    width,
+    height: Math.round((src.height * width) / src.width),
+    alt,
+  };
+}
+
+const projects = await Promise.all(
+  (await getCollection('projects'))
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async ({ data }) => {
+      const images = data.images ?? [];
+      return {
+        ...data,
+        cover: images[0],
+        // the banner opens the preview on these; without JavaScript it links to the first one
+        photos: await Promise.all(images.map(({ src, alt }) => preview(src, l(alt, lang)))),
+      };
+    }),
+);
+const arts = { calendar: CalendarArt, wedding: WeddingArt, 'server-setup': ServerSetupArt };
+
+/** Banner across the top of a card: the project's first photo or, without photos, its illustration. */
+const banner = '-mx-7.5 -mt-7.5 mb-6.5 h-44 rounded-t-[calc(var(--radius-card)-1px)] border-b border-line bg-bg';
+
+/**
+ * Layout of card `i` out of `n`: its column span, so the grid never ends with a lone card, and the
+ * width of the card at each breakpoint, as the `sizes` of a banner photo.
+ * Two columns (sm): an odd last card takes the whole row.
+ * Six tracks (lg): cards span 2 (three per row); the last row is rebalanced with span 3:
+ * 3k+2 → last two share the row, 3k+1 → last four become two rows of two.
+ */
+function layoutFor(i: number, n: number): { span: string; sizes: string } {
+  const wide = n % 2 === 1 && i === n - 1;
+  // widths inside the 1240px page with its 56px gutters and 22px gaps
+  let lg = { span: 'lg:col-span-2', width: '362px' };
+  if (n === 1) lg = { span: 'lg:col-span-full', width: '1128px' };
+  else if ((n % 3 === 2 && i >= n - 2) || (n % 3 === 1 && i >= n - 4)) lg = { span: 'lg:col-span-3', width: '554px' };
+  return {
+    span: `${wide ? 'sm:col-span-2' : ''} ${lg.span}`,
+    sizes: `(min-width: 1101px) ${lg.width}, (min-width: 721px) ${wide ? '100vw' : '50vw'}, 100vw`,
+  };
+}
+---
+
+<Section id="projects" title={t('proj.title')}>
+  <div class="grid grid-cols-1 gap-5.5 sm:grid-cols-2 lg:grid-cols-6">
+    {
+      projects.map((project, i) => {
+        const Art = arts[project.art];
+        const { span, sizes } = layoutFor(i, projects.length);
+        return (
+          <Card as="article" hover class={`reveal flex flex-col p-7.5 ${span}`}>
+            {project.cover ? (
+              <a
+                href={project.photos[0].src}
+                target="_blank"
+                rel="noopener"
+                data-lightbox={JSON.stringify(project.photos)}
+                aria-label={`${t('proj.photos')} ${project.name}`}
+                class:list={[banner, 'group/photo relative block cursor-zoom-in overflow-hidden rounded-b-none']}
+              >
+                <Image
+                  src={project.cover.src}
+                  alt={l(project.cover.alt, lang)}
+                  widths={[480, 960, 1440]}
+                  sizes={sizes}
+                  class="size-full object-cover transition-transform duration-300 group-hover/photo:scale-103 motion-reduce:transition-none"
+                />
+                {project.photos.length > 1 && (
+                  <span class="absolute right-2.5 bottom-2.5 rounded-full bg-nav px-2.5 py-0.5 font-mono text-[12px] backdrop-blur-md">
+                    1 / {project.photos.length}
+                  </span>
+                )}
+              </a>
+            ) : (
+              <div
+                aria-hidden="true"
+                class:list={[banner, 'bg-[radial-gradient(var(--color-line)_1px,transparent_1px)] bg-size-[14px_14px]']}
+              >
+                <svg
+                  viewBox="0 0 320 120"
+                  preserveAspectRatio="xMidYMid meet"
+                  focusable="false"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="block size-full"
+                >
+                  <Art />
+                </svg>
+              </div>
+            )}
+            <p class="mb-3.5 font-mono text-[12px] tracking-[.08em] text-accent uppercase">{l(project.tag, lang)}</p>
+            <h3 class="mb-3 font-head text-[26px] leading-[1.15] font-medium tracking-[-.02em] wrap-anywhere">
+              {project.name}
+            </h3>
+            {/* whichever comes last closes the card, without its bottom margin */}
+            <p class="mb-5.5 text-[16px] text-ink-soft last:mb-0">{l(project.description, lang)}</p>
+            {project.tech && <Chips items={project.tech} class="mb-7 last:mb-0" />}
+            {project.link && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener"
+                class="mt-auto self-start border-b-[1.5px] border-accent-bright pb-0.5 text-[15px] font-medium transition-colors duration-200 hover:text-accent"
+              >
+                <span>
+                  {t('proj.view')} {codeHostName(project.link)}
+                </span>{' '}
+                <span aria-hidden="true">↗</span>
+              </a>
+            )}
+          </Card>
+        );
+      })
+    }
+  </div>
+  {projects.some((project) => project.cover) && <Lightbox />}
+</Section>

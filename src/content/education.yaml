@@ -1,0 +1,26 @@
+# Degrees, rendered newest first (by `start`).
+- id: msc
+  degree:
+    en: M.Sc. in Computer Science, ICT Solution Architect
+    it: Laurea Magistrale in Informatica, ICT Solution Architect
+  school:
+    en: University of Pisa
+    it: Università di Pisa
+  start: 2017-09
+  end: 2022-10
+  note:
+    en: "Thesis: implementation of the SWD protocol for FreeRTOS, letting an ESP32 control and debug an RP2040 MCU."
+    it: "Tesi: implementazione del protocollo SWD per FreeRTOS, per far controllare ed eseguire il debug di un MCU RP2040 a un ESP32."
+
+- id: bsc
+  degree:
+    en: B.Sc. in Computer Science
+    it: Laurea Triennale in Informatica
+  school:
+    en: University of Pisa
+    it: Università di Pisa
+  start: 2011-09
+  end: 2016-12
+  note:
+    en: "Thesis: intruder-tracking demonstrator with a Turtlebot robot, Tmote sensor nodes, Kinect and motion sensors. Exhibited at Internet Festival 2016."
+    it: "Tesi: dimostratore per il tracciamento di intrusi con un robot Turtlebot, nodi sensore Tmote, Kinect e sensori di movimento. Esposto all’Internet Festival 2016."

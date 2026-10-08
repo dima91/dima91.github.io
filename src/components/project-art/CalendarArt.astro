@@ -1,0 +1,15 @@
+---
+// pi-touch-date: a touchscreen calendar wired to the board
+import { pa } from './paint';
+---
+
+<path class={pa.trace} d="M80 36H50l-10 10H18M80 60H34M80 84H50l-10-10H18M240 36h30l10 10h22M240 60h46M240 84h30l10-10h22" />
+<path class={pa.dots} d="M18 46h.01M34 60h.01M18 74h.01M302 46h.01M286 60h.01M302 74h.01" />
+<rect class={pa.panel} x="80" y="12" width="160" height="96" rx="8" />
+<rect class={pa.fillA} x="96" y="23" width="44" height="6" rx="3" />
+<path class={pa.stroke} d="M205 23l-4 4 4 4M219 23l4 4-4 4" />
+<path class={pa.week} d="M98 37h126" />
+<path class={pa.cells} d="M98 46h126M98 60h126M98 74h126M98 88h126" />
+<rect class={pa.fillA} x="152" y="69" width="14" height="10" rx="2.5" />
+<circle class={pa.strokeM} cx="159" cy="74" r="9" />
+<circle class:list={[pa.strokeM, pa.faint]} cx="159" cy="74" r="15" />

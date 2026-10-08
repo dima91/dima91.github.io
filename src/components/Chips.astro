@@ -1,0 +1,22 @@
+---
+interface Props {
+  items: string[];
+  /** Higher emphasis: stronger tint and full-contrast text. */
+  strong?: boolean;
+  class?: string;
+}
+
+const { items, strong = false, class: className } = Astro.props;
+---
+
+<ul class:list={['flex flex-wrap gap-2', className]}>
+  {
+    items.map((item) => (
+      <li
+        class:list={['rounded-full px-3.25 py-1.5 text-[14px]', strong ? 'bg-chip-strong text-ink' : 'bg-chip text-ink-soft']}
+      >
+        {item}
+      </li>
+    ))
+  }
+</ul>

@@ -1,0 +1,91 @@
+# Skill cards, rendered by `order` (Astro stores entries sorted by id).
+# Each card lists one or more chip groups; a group may have a `tier` label and `strong` chips.
+# A lone last card spans the whole row.
+- id: languages
+  order: 1
+  title:
+    en: Languages
+    it: Linguaggi
+  groups:
+    - tier:
+        en: Proficient
+        it: Esperto
+      strong: true
+      items: [C, C++, C#, JavaScript, Python]
+    - tier:
+        en: Competent
+        it: Competente
+      items: [TypeScript, Java, Bash, HTML, CSS, LaTeX, Markdown]
+
+- id: embedded
+  order: 2
+  title:
+    en: Embedded & IoT
+    it: Embedded e IoT
+  groups:
+    - items:
+        - Arduino
+        - Raspberry Pi
+        - ESP32
+        - ESP-IDF
+        - MicroPython
+        - FreeRTOS
+        - ROS
+        - en: Yocto (basics)
+          it: Yocto (basi)
+        - Linux kernel
+  desc:
+    en: Sensors and actuators, wired and wireless communication, custom board firmware.
+    it: Sensori e attuatori, comunicazione cablata e wireless, firmware per schede custom.
+
+- id: desktop
+  order: 3
+  title:
+    en: Desktop apps
+    it: Applicazioni desktop
+  groups:
+    - items: [Qt, PySide, Avalonia, .NET, Electron]
+
+- id: web
+  order: 4
+  title:
+    en: Web & full-stack
+    it: Web e full-stack
+  groups:
+    - items: [React, Mantine, Node.js, Express.js, PostgreSQL, OpenLayers]
+
+- id: networks
+  order: 5
+  title:
+    en: Protocols & networks
+    it: Protocolli e reti
+  groups:
+    - items:
+        - TCP/IP
+        - ETSI ITS-G5
+        - oneM2M
+        - en: Sensor networks
+          it: Reti di sensori
+        - IPC
+        - E1381
+        - E1394
+  desc:
+    en: E1381 and E1394 for clinical laboratory instrumentation.
+    it: E1381 ed E1394 per la strumentazione dei laboratori clinici.
+
+- id: ways-of-working
+  order: 6
+  title:
+    en: Tools & ways of working
+    it: Strumenti e modo di lavorare
+  groups:
+    - items:
+        - Docker
+        - en: CI/CD on GitLab
+          it: CI/CD su GitLab
+        - Unix/Linux
+        - Scrum
+        - Kanban
+        - en: Team leadership
+          it: Guida di team
+        - Product management

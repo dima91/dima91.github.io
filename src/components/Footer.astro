@@ -1,0 +1,18 @@
+---
+import { getLang, useTranslations } from '../i18n/ui';
+
+interface Props {
+  backToTop?: boolean;
+}
+
+const { backToTop = true } = Astro.props;
+const t = useTranslations(getLang(Astro.currentLocale));
+const year = new Date().getFullYear();
+---
+
+<footer
+  class="mx-auto flex w-full max-w-page flex-wrap justify-between gap-4 border-t border-line px-gutter pt-8 pb-12 text-[14px] text-ink-soft"
+>
+  <p>© {year} Luca Di Mauro</p>
+  {backToTop && <a href="#top" class="transition-colors duration-200 hover:text-ink">{t('footer.top')}</a>}
+</footer>

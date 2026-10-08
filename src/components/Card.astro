@@ -1,0 +1,21 @@
+---
+import type { HTMLTag, Polymorphic } from 'astro/types';
+
+type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
+  /** Lift and highlight the border on hover. */
+  hover?: boolean;
+};
+
+const { as: Tag = 'div', hover = false, class: className, ...rest } = Astro.props;
+---
+
+<Tag
+  class:list={[
+    'rounded-card border border-line bg-surface transition-[background-color,border-color,color,translate] duration-250',
+    hover && 'hover:-translate-y-0.75 hover:border-accent-bright',
+    className,
+  ]}
+  {...rest}
+>
+  <slot />
+</Tag>

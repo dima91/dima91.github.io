@@ -1,0 +1,49 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getLang, languages, useTranslations, type Lang } from '../i18n/ui';
+
+const lang = getLang(Astro.currentLocale);
+const other: Lang = lang === 'en' ? 'it' : 'en';
+// the label is written in the target language, so it is announced with that language
+const t = useTranslations(other);
+---
+
+<a
+  data-lang-toggle
+  href={getRelativeLocaleUrl(other)}
+  hreflang={other}
+  lang={other}
+  aria-label={t('toggle.lang')}
+  class="inline-flex h-9 items-center rounded-full border-[1.5px] border-line p-0.75 font-mono text-[12px] tracking-[.05em] text-ink transition-colors duration-200 hover:border-ink-soft"
+>
+  {
+    (Object.keys(languages) as Lang[]).map((code) => (
+      <span
+        class:list={['rounded-full px-2.25 py-1 leading-[1.4]', code === lang ? 'bg-ink text-bg' : 'text-ink-soft']}
+      >
+        {languages[code]}
+      </span>
+    ))
+  }
+</a>
+
+<script>
+  // Keep the reader's place: the other language opens on the section currently in view.
+  // (The section, not the scroll offset: the two languages have different text lengths.)
+  const toggle = document.querySelector<HTMLAnchorElement>('[data-lang-toggle]')!;
+
+  function pointAtCurrentSection() {
+    const line = window.innerHeight * 0.4;
+    let current = '';
+    for (const section of document.querySelectorAll<HTMLElement>('main section[id]')) {
+      if (section.getBoundingClientRect().top <= line) current = section.id;
+    }
+    const url = new URL(toggle.href);
+    url.hash = window.scrollY > 0 ? current : '';
+    toggle.href = url.href;
+  }
+
+  // auxclick: middle-click / open in new tab
+  toggle.addEventListener('click', pointAtCurrentSection);
+  toggle.addEventListener('auxclick', pointAtCurrentSection);
+</script>
