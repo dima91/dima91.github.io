@@ -15,6 +15,19 @@
   tech: [C#, .NET 8, Avalonia UI, ReactiveUI, Raspberry Pi, GitHub Actions]
   link: https://github.com/dima91/pi-touch-date
   art: calendar
+  images:
+    - src: ../assets/projects/pi_touch_date/pi_touch_date-main.png
+      alt:
+        en: Main screen with the day and date in large type and, below, the time, the current weather and the night mode and settings buttons
+        it: Schermata principale con giorno e data a grandi caratteri e, sotto, l'ora, il meteo attuale e i pulsanti per modalità notte e impostazioni
+    - src: ../assets/projects/pi_touch_date/pi_touch_date-weather.png
+      alt:
+        en: Weather panel with the current conditions in Siena, the day's high and low, and the forecast for night, morning, afternoon and evening
+        it: Pannello meteo con le condizioni attuali a Siena, massima e minima del giorno e le previsioni per notte, mattina, pomeriggio e sera
+    - src: ../assets/projects/pi_touch_date/pi_touch_date-settings.png
+      alt:
+        en: Settings panel with the screen brightness, the automatic night mode between sunset and sunrise, and the restart and shut down buttons
+        it: Pannello impostazioni con la luminosità dello schermo, la modalità notte automatica tra tramonto e alba e i pulsanti per riavviare e arrestare
 
 - id: my-favourite-wedding
   order: 2
