@@ -13,6 +13,7 @@ const contacts = defineCollection({
   loader: file('src/content/contacts.yaml'),
   schema: z.object({
     order: z.number().int(),
+    icon: z.enum(['mail', 'linkedin', 'github', 'telegram']),
     label: z.string(),
     value: z.string(),
     href: z.url(),

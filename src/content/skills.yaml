@@ -11,11 +11,11 @@
         en: Proficient
         it: Esperto
       strong: true
-      items: [C, C++, JavaScript, Python]
+      items: [C, C++, C#, JavaScript, Python]
     - tier:
         en: Competent
         it: Competente
-      items: [C#, Java, Bash, HTML, CSS, LaTeX, Markdown]
+      items: [TypeScript, Java, Bash, HTML, CSS, LaTeX, Markdown]
 
 - id: embedded
   order: 2
@@ -38,16 +38,24 @@
     en: Sensors and actuators, wired and wireless communication, custom board firmware.
     it: Sensori e attuatori, comunicazione cablata e wireless, firmware per schede custom.
 
-- id: apps
+- id: desktop
   order: 3
   title:
-    en: Apps & frameworks
-    it: Applicazioni e framework
+    en: Desktop apps
+    it: Applicazioni desktop
   groups:
-    - items: [Qt, PySide, Avalonia, React, Node.js, Electron, OpenLayers, Docker, Unix/Linux]
+    - items: [Qt, PySide, Avalonia, .NET, Electron]
+
+- id: web
+  order: 4
+  title:
+    en: Web & full-stack
+    it: Web e full-stack
+  groups:
+    - items: [React, Mantine, Node.js, Express.js, PostgreSQL, OpenLayers]
 
 - id: networks
-  order: 4
+  order: 5
   title:
     en: Protocols & networks
     it: Protocolli e reti
@@ -66,19 +74,18 @@
     it: E1381 ed E1394 per la strumentazione dei laboratori clinici.
 
 - id: ways-of-working
-  order: 5
+  order: 6
   title:
-    en: Ways of working
-    it: Modo di lavorare
+    en: Tools & ways of working
+    it: Strumenti e modo di lavorare
   groups:
     - items:
-        - Scrum
-        - Kanban
+        - Docker
         - en: CI/CD on GitLab
           it: CI/CD su GitLab
+        - Unix/Linux
+        - Scrum
+        - Kanban
         - en: Team leadership
           it: Guida di team
         - Product management
-  desc:
-    en: English B2 · Italian native.
-    it: Inglese B2 · Italiano madrelingua.

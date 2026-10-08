@@ -1,11 +1,22 @@
 ---
 import { getCollection } from 'astro:content';
+import GitHub from '../assets/icons/github.svg';
+import LinkedIn from '../assets/icons/linkedin.svg';
+import Mail from '../assets/icons/mail.svg';
+import Telegram from '../assets/icons/telegram.svg';
 import { getLang, useTranslations } from '../i18n/ui';
 import Card from './Card.astro';
 import Section from './Section.astro';
 
 const t = useTranslations(getLang(Astro.currentLocale));
 const contacts = (await getCollection('contacts')).sort((a, b) => a.data.order - b.data.order);
+// brand colours; GitHub's mark is black, so it follows the text colour to stay visible on the dark theme
+const icons = {
+  mail: { Icon: Mail, color: 'text-magenta' },
+  linkedin: { Icon: LinkedIn, color: 'text-[#0A66C2]' },
+  github: { Icon: GitHub, color: 'text-ink' },
+  telegram: { Icon: Telegram, color: 'text-[#24A1DE]' },
+};
 ---
 
 <Section id="contact" title={t('contact.title')}>
@@ -15,6 +26,7 @@ const contacts = (await getCollection('contacts')).sort((a, b) => a.data.order -
       {
         contacts.map(({ data }) => {
           const external = data.href.startsWith('http');
+          const { Icon, color } = icons[data.icon];
           return (
             <li>
               <Card
@@ -23,10 +35,20 @@ const contacts = (await getCollection('contacts')).sort((a, b) => a.data.order -
                 href={data.href}
                 target={external ? '_blank' : undefined}
                 rel={external ? 'noopener' : undefined}
-                class="flex flex-col gap-0.5 px-5.5 py-5 font-medium wrap-anywhere"
+                class="flex items-center gap-4 px-5.5 py-5 font-medium"
               >
-                <span class="font-mono text-[12px] font-normal tracking-[.08em] text-accent uppercase">{data.label}</span>
-                {data.value}
+                <span
+                  class:list={[
+                    'inline-grid size-9.5 shrink-0 place-items-center rounded-[10px] border border-line bg-bg',
+                    color,
+                  ]}
+                >
+                  <Icon aria-hidden="true" />
+                </span>
+                <span class="flex min-w-0 flex-col gap-0.5 wrap-anywhere">
+                  <span class="font-mono text-[12px] font-normal tracking-[.08em] text-accent uppercase">{data.label}</span>
+                  {data.value}
+                </span>
               </Card>
             </li>
           );

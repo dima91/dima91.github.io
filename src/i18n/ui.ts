@@ -25,9 +25,9 @@ const en = {
 
   'hero.place': 'Siena, Italy',
   'hero.bio1':
-    'I build software that lives close to the hardware: firmware for custom embedded boards, and the desktop, web and network tooling around them. Nine years across research, product companies and clinical laboratory instrumentation.',
+    'I build software that lives close to the hardware: firmware for embedded boards and the desktop, web, and networking tools that surround them. Since 2017 I\'ve moved between research, product companies, and clinical lab instrumentation.',
   'hero.bio2':
-    'Today I develop software for diagnostic laboratory instruments at DIESSE and lead the development of a desktop application for ESR exam management, including DAS-28 parameter calculation.',
+    'Today I create the software for DIESSE\'s diagnostic instruments and lead the development of the desktop applications that accompany them.',
   'hero.cta.contact': 'Get in touch',
   'hero.cta.experience': 'See experience',
   'hero.cta.cv': 'Download CV',
@@ -46,6 +46,7 @@ const en = {
   'proj.view': 'View on',
 
   'skills.title': 'Skills',
+  'skills.spoken': 'Spoken languages: Italian (native) · English (B2)',
 
   'pubs.title': 'Publications',
 
@@ -87,9 +88,9 @@ const it: Record<UiKey, string> = {
 
   'hero.place': 'Siena, Italia',
   'hero.bio1':
-    'Costruisco software che vive vicino all’hardware: firmware per schede embedded custom e gli strumenti desktop, web e di rete che le circondano. Nove anni tra ricerca, aziende di prodotto e strumentazione per laboratori clinici.',
+    'Costruisco software che vive vicino all\'hardware: firmware per schede embedded e gli strumenti desktop, web e di rete che le circondano. Dal 2017 mi muovo tra ricerca, aziende di prodotto e strumentazione per laboratori clinici.',
   'hero.bio2':
-    'Oggi sviluppo il software per gli strumenti diagnostici di laboratorio di DIESSE e guido lo sviluppo di un’applicazione desktop per la gestione degli esami VES, incluso il calcolo del parametro DAS-28.',
+    'Oggi creo il software degli strumenti diagnostici DIESSE e guido lo sviluppo delle applicazioni desktop che li accompagnano.',
   'hero.cta.contact': 'Contattami',
   'hero.cta.experience': 'Vedi esperienza',
   'hero.cta.cv': 'Scarica il CV',
@@ -108,6 +109,7 @@ const it: Record<UiKey, string> = {
   'proj.view': 'Vedi su',
 
   'skills.title': 'Competenze',
+  'skills.spoken': 'Lingue parlate: Italiano (madrelingua) · Inglese (B2)',
 
   'pubs.title': 'Pubblicazioni',
 

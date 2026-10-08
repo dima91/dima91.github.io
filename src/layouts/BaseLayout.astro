@@ -86,7 +86,9 @@ const ogImage =
     <Font cssVariable="--font-plex-sans" preload />
     <Font cssVariable="--font-plex-mono" />
   </head>
+  <!-- #top is the footer's "back to top" target: it cannot be the sticky header, which is always in view -->
   <body
+    id="top"
     class:list={[
       'bg-bg font-sans text-[16px] leading-[1.65] text-ink antialiased transition-colors duration-300 sm:text-[17px]',
       // short pages: keep the footer at the bottom of the viewport

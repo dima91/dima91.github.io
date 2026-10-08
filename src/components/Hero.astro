@@ -26,12 +26,6 @@ const stats: { value: string; label: UiKey }[] = [
   class="mx-auto grid max-w-page grid-cols-1 items-center gap-[clamp(24px,4vw,64px)] overflow-x-clip px-gutter pt-[clamp(32px,6vw,72px)] pb-[clamp(56px,8vw,110px)] md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]"
 >
   <div>
-    <p
-      class="mb-5.5 inline-flex items-center gap-2.5 font-mono text-[13px] tracking-[.06em] text-ink-soft uppercase"
-    >
-      <span class="size-2 rounded-full bg-accent-bright shadow-[0_0_0_4px_rgba(6,182,212,.18)]"></span>
-      {t('hero.place')}
-    </p>
     <h1 class="font-head text-display font-bold whitespace-nowrap">Luca<br />Di Mauro</h1>
     <p
       class="mt-5.5 mb-6.5 inline-block bg-linear-to-r/srgb from-accent-bright to-magenta bg-clip-text font-head text-role font-medium text-transparent"
@@ -66,7 +60,7 @@ const stats: { value: string; label: UiKey }[] = [
        The img keeps the source aspect ratio: resized variants round their height, which would
        shift everything below by a fraction of a pixel depending on the srcset candidate. -->
   <div
-    class="relative order-first before:absolute before:inset-[10%_5%_5%_12%] before:bg-[radial-gradient(closest-side,var(--color-glow-a),var(--color-glow-b)_60%,transparent_80%)] before:blur-[30px] md:order-none"
+    class="relative order-first before:absolute before:inset-[10%_5%_5%_12%] before:bg-[radial-gradient(closest-side,var(--color-glow-a),var(--color-glow-b)_60%,transparent_80%)] before:blur-[30px] md:order-none md:w-[90%] md:justify-self-center"
   >
     <Image
       src={hero}
@@ -75,7 +69,7 @@ const stats: { value: string; label: UiKey }[] = [
       sizes="(min-width: 961px) min(56vw, 720px), 100vw"
       priority
       style={`aspect-ratio: ${hero.width} / ${hero.height}`}
-      class="relative w-full animate-float motion-reduce:animate-none md:-mr-[15%] md:w-[115%] md:max-w-none dark:brightness-92 dark:saturate-88"
+      class="relative w-full animate-float motion-reduce:animate-none dark:brightness-92 dark:saturate-88"
     />
   </div>
 </section>
