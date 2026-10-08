@@ -117,19 +117,22 @@ function layoutFor(i: number, n: number): { span: string; sizes: string } {
             <h3 class="mb-3 font-head text-[26px] leading-[1.15] font-medium tracking-[-.02em] wrap-anywhere">
               {project.name}
             </h3>
-            <p class="mb-5.5 text-[16px] text-ink-soft">{l(project.description, lang)}</p>
-            {project.tech && <Chips items={project.tech} class="mb-7" />}
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noopener"
-              class="mt-auto self-start border-b-[1.5px] border-accent-bright pb-0.5 text-[15px] font-medium transition-colors duration-200 hover:text-accent"
-            >
-              <span>
-                {t('proj.view')} {codeHostName(project.link)}
-              </span>{' '}
-              <span aria-hidden="true">↗</span>
-            </a>
+            {/* whichever comes last closes the card, without its bottom margin */}
+            <p class="mb-5.5 text-[16px] text-ink-soft last:mb-0">{l(project.description, lang)}</p>
+            {project.tech && <Chips items={project.tech} class="mb-7 last:mb-0" />}
+            {project.link && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener"
+                class="mt-auto self-start border-b-[1.5px] border-accent-bright pb-0.5 text-[15px] font-medium transition-colors duration-200 hover:text-accent"
+              >
+                <span>
+                  {t('proj.view')} {codeHostName(project.link)}
+                </span>{' '}
+                <span aria-hidden="true">↗</span>
+              </a>
+            )}
           </Card>
         );
       })
