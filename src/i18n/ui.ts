@@ -49,6 +49,8 @@ const en = {
 
   'lightbox.label': 'Photo preview',
   'lightbox.close': 'Close',
+  'lightbox.prev': 'Previous photo',
+  'lightbox.next': 'Next photo',
 
   'skills.title': 'Skills',
   'skills.spoken': 'Spoken languages: Italian (native) · English (B2)',
@@ -116,6 +118,8 @@ const it: Record<UiKey, string> = {
 
   'lightbox.label': 'Anteprima foto',
   'lightbox.close': 'Chiudi',
+  'lightbox.prev': 'Foto precedente',
+  'lightbox.next': 'Foto successiva',
 
   'skills.title': 'Competenze',
   'skills.spoken': 'Lingue parlate: Italiano (madrelingua) · Inglese (B2)',

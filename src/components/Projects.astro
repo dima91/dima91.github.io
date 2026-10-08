@@ -81,7 +81,7 @@ function layoutFor(i: number, n: number): { span: string; sizes: string } {
                 rel="noopener"
                 data-lightbox={JSON.stringify(project.photos)}
                 aria-label={`${t('proj.photos')} ${project.name}`}
-                class:list={[banner, 'group/photo block cursor-zoom-in overflow-hidden rounded-b-none']}
+                class:list={[banner, 'group/photo relative block cursor-zoom-in overflow-hidden rounded-b-none']}
               >
                 <Image
                   src={project.cover.src}
@@ -90,6 +90,11 @@ function layoutFor(i: number, n: number): { span: string; sizes: string } {
                   sizes={sizes}
                   class="size-full object-cover transition-transform duration-300 group-hover/photo:scale-103 motion-reduce:transition-none"
                 />
+                {project.photos.length > 1 && (
+                  <span class="absolute right-2.5 bottom-2.5 rounded-full bg-nav px-2.5 py-0.5 font-mono text-[12px] backdrop-blur-md">
+                    1 / {project.photos.length}
+                  </span>
+                )}
               </a>
             ) : (
               <div

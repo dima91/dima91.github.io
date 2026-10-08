@@ -72,6 +72,8 @@ a message pointing at the field.
   `src` is relative to `projects.yaml`, and `alt` is required and translatable like any other text. The first
   photo replaces the illustration in the card banner, cropped to fit. A click opens it in a full-page preview
   (`src/components/Lightbox.astro`) over the blurred page; without JavaScript it opens in a new tab.
+  With more than one photo the banner shows how many there are and the preview becomes a slideshow, in the
+  order of the list: arrows on screen, the left and right keys, or a swipe.
 - **CV**: the hero's download button serves `public/CV_EN-Luca_Di_Mauro.pdf` on the English page and
   `public/CV_IT-Luca_Di_Mauro.pdf` on the Italian one. To update a CV, replace its file keeping the name, so the
   link stays the same.
