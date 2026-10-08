@@ -47,6 +47,9 @@ const en = {
   // followed by the project name
   'proj.photos': 'View photos of',
 
+  'lightbox.label': 'Photo preview',
+  'lightbox.close': 'Close',
+
   'skills.title': 'Skills',
   'skills.spoken': 'Spoken languages: Italian (native) · English (B2)',
 
@@ -110,6 +113,9 @@ const it: Record<UiKey, string> = {
   'proj.title': 'Progetti',
   'proj.view': 'Vedi su',
   'proj.photos': 'Guarda le foto di',
+
+  'lightbox.label': 'Anteprima foto',
+  'lightbox.close': 'Chiudi',
 
   'skills.title': 'Competenze',
   'skills.spoken': 'Lingue parlate: Italiano (madrelingua) · Inglese (B2)',

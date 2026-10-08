@@ -24,7 +24,8 @@ src/
 ├── content.config.ts     collection schemas
 ├── i18n/ui.ts            UI strings (en/it) and translation helpers
 ├── data/sections.ts      section order → nav links and 01, 02… labels
-├── components/           one component per section, plus Card, Chips, Section, PcbBackground
+├── data/lightbox.ts      shape of a photo passed to the full-page preview
+├── components/           one component per section, plus Card, Chips, Section, Lightbox, PcbBackground
 │   └── project-art/      SVG banner illustrations of the project cards
 ├── layouts/BaseLayout.astro
 ├── pages/                index.astro (en) and it/index.astro, both render Home.astro
@@ -69,7 +70,8 @@ a message pointing at the field.
   ```
 
   `src` is relative to `projects.yaml`, and `alt` is required and translatable like any other text. The first
-  photo replaces the illustration in the card banner, cropped to fit, and links to the full-size photo.
+  photo replaces the illustration in the card banner, cropped to fit. A click opens it in a full-page preview
+  (`src/components/Lightbox.astro`) over the blurred page; without JavaScript it opens in a new tab.
 - **CV**: the hero's download button serves `public/CV_EN-Luca_Di_Mauro.pdf` on the English page and
   `public/CV_IT-Luca_Di_Mauro.pdf` on the Italian one. To update a CV, replace its file keeping the name, so the
   link stays the same.

@@ -1,0 +1,75 @@
+---
+import Close from '../assets/icons/close.svg';
+import { getLang, useTranslations } from '../i18n/ui';
+
+const t = useTranslations(getLang(Astro.currentLocale));
+---
+
+<!-- Full-page photo preview: one per page, opened by any element with a `data-lightbox` attribute
+     (see src/data/lightbox.ts). The dialog fills the viewport and is itself the blurred veil over the
+     page, rather than its ::backdrop, which does not get the theme colours in older browsers.
+     The photo is sized from its pixel size (--w, --h, set by the script), so its frame is in place
+     before it loads: never larger than the photo itself or than the space inside the padding. -->
+<dialog
+  data-lightbox-dialog
+  aria-label={t('lightbox.label')}
+  class="fixed inset-0 m-0 size-full max-h-none max-w-none place-items-center bg-bg/55 px-(--pad-x) py-(--pad-y) text-ink backdrop-blur-lg transition-opacity duration-200 [--pad-x:clamp(16px,5vw,64px)] [--pad-y:72px] backdrop:bg-transparent open:grid motion-reduce:transition-none starting:open:opacity-0"
+>
+  <img
+    data-lightbox-photo
+    alt=""
+    sizes="100vw"
+    class="aspect-[calc(var(--w)/var(--h))] w-[min(100%,calc(var(--w)*1px),calc((100dvh-2*var(--pad-y))*var(--w)/var(--h)))] rounded-card bg-surface"
+  />
+  <button
+    type="button"
+    data-lightbox-close
+    aria-label={t('lightbox.close')}
+    class="absolute top-3.5 right-3.5 inline-grid size-11 cursor-pointer place-items-center rounded-full border-[1.5px] border-line bg-surface text-ink transition-colors duration-200 hover:border-ink-soft"
+  >
+    <Close aria-hidden="true" />
+  </button>
+</dialog>
+
+<script>
+  import type { LightboxPhoto } from '../data/lightbox';
+
+  const dialog = document.querySelector<HTMLDialogElement>('[data-lightbox-dialog]')!;
+  const photo = dialog.querySelector<HTMLImageElement>('[data-lightbox-photo]')!;
+  let opener: HTMLElement | null = null;
+
+  function show({ src, srcset, width, height, alt }: LightboxPhoto) {
+    photo.style.setProperty('--w', String(width));
+    photo.style.setProperty('--h', String(height));
+    photo.alt = alt;
+    photo.srcset = srcset;
+    photo.src = src;
+  }
+
+  document.addEventListener('click', (event) => {
+    const trigger = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-lightbox]') : null;
+    // a modified click keeps what the element does by itself: a link opens its photo in a new tab
+    if (!trigger || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+
+    const photos: LightboxPhoto[] = JSON.parse(trigger.dataset.lightbox!);
+    opener = trigger;
+    show(photos[0]);
+    dialog.showModal();
+  });
+
+  // a click on the veil around the photo lands on the dialog itself
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+  dialog.querySelector('[data-lightbox-close]')!.addEventListener('click', () => dialog.close());
+
+  // also after Esc
+  dialog.addEventListener('close', () => {
+    // drop the photo, so the preview does not reopen on the previous one while the next loads
+    photo.removeAttribute('src');
+    photo.removeAttribute('srcset');
+    // browsers that do not focus a link on click cannot return the focus to it by themselves
+    opener?.focus({ preventScroll: true });
+  });
+</script>

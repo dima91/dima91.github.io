@@ -2,9 +2,11 @@
 import { getImage, Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import { codeHostName } from '../data/codeHosts';
+import type { LightboxPhoto } from '../data/lightbox';
 import { getLang, l, useTranslations } from '../i18n/ui';
 import Card from './Card.astro';
 import Chips from './Chips.astro';
+import Lightbox from './Lightbox.astro';
 import Section from './Section.astro';
 import CalendarArt from './project-art/CalendarArt.astro';
 import DevserverArt from './project-art/DevserverArt.astro';
@@ -13,14 +15,30 @@ import WeddingArt from './project-art/WeddingArt.astro';
 const lang = getLang(Astro.currentLocale);
 const t = useTranslations(lang);
 
+/** A photo for the full-page preview: at most 1920px wide, with a half-size variant for small screens. */
+async function preview(src: ImageMetadata, alt: string): Promise<LightboxPhoto> {
+  const width = Math.min(src.width, 1920);
+  const image = await getImage({ src, width, widths: [960, 1920] });
+  return {
+    src: image.src,
+    srcset: image.srcSet.attribute,
+    width,
+    height: Math.round((src.height * width) / src.width),
+    alt,
+  };
+}
+
 const projects = await Promise.all(
   (await getCollection('projects'))
     .sort((a, b) => a.data.order - b.data.order)
     .map(async ({ data }) => {
-      const cover = data.images?.[0];
-      // the banner links to its photo at full size, capped at 1920px
-      const full = cover && (await getImage({ src: cover.src, width: Math.min(cover.src.width, 1920) }));
-      return { ...data, cover, full };
+      const images = data.images ?? [];
+      return {
+        ...data,
+        cover: images[0],
+        // the banner opens the preview on these; without JavaScript it links to the first one
+        photos: await Promise.all(images.map(({ src, alt }) => preview(src, l(alt, lang)))),
+      };
     }),
 );
 const arts = { calendar: CalendarArt, wedding: WeddingArt, devserver: DevserverArt };
@@ -56,11 +74,12 @@ function layoutFor(i: number, n: number): { span: string; sizes: string } {
         const { span, sizes } = layoutFor(i, projects.length);
         return (
           <Card as="article" hover class={`reveal flex flex-col p-7.5 ${span}`}>
-            {project.cover && project.full ? (
+            {project.cover ? (
               <a
-                href={project.full.src}
+                href={project.photos[0].src}
                 target="_blank"
                 rel="noopener"
+                data-lightbox={JSON.stringify(project.photos)}
                 aria-label={`${t('proj.photos')} ${project.name}`}
                 class:list={[banner, 'group/photo block cursor-zoom-in overflow-hidden rounded-b-none']}
               >
@@ -111,4 +130,5 @@ function layoutFor(i: number, n: number): { span: string; sizes: string } {
       })
     }
   </div>
+  {projects.some((project) => project.cover) && <Lightbox />}
 </Section>
