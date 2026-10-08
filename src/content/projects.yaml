@@ -78,12 +78,15 @@
         en: Guest page with the ceremony and reception venues, the replies of the guest's group and the table where they will sit
         it: Pagina dell'invitato con i luoghi di cerimonia e ricevimento, le risposte del proprio gruppo e il tavolo a cui siederà
 
-- id: devserver
+- id: server-setup
   order: 3
-  name: devserver
-  tag: Repository
+  name: server-setup
+  tag:
+    en: Server automation
+    it: Automazione server
   description:
-    en: Source code available on GitLab.
-    it: Codice sorgente disponibile su GitLab.
-  link: https://gitlab.com/dima.91/devserver
-  art: devserver
+    en: "Bash scripts that set up a fresh Debian or Ubuntu server in staged runs: new user, hardened SSH, firewall, swap and Docker. They then start a Compose stack with a self-configuring reverse proxy, Portainer, CrowdSec and a personal VPN."
+    it: "Script Bash che configurano un server Debian o Ubuntu appena creato in più fasi: nuovo utente, SSH protetto, firewall, swap e Docker. Poi avviano uno stack Compose con un reverse proxy che si configura da solo, Portainer, CrowdSec e una VPN personale."
+  tech: [Bash, Docker Compose, Nginx Proxy Manager, CrowdSec, Portainer, UFW]
+  link: https://github.com/dima91/server-setup
+  art: server-setup

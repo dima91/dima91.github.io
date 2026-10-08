@@ -9,7 +9,7 @@ import Chips from './Chips.astro';
 import Lightbox from './Lightbox.astro';
 import Section from './Section.astro';
 import CalendarArt from './project-art/CalendarArt.astro';
-import DevserverArt from './project-art/DevserverArt.astro';
+import ServerSetupArt from './project-art/ServerSetupArt.astro';
 import WeddingArt from './project-art/WeddingArt.astro';
 
 const lang = getLang(Astro.currentLocale);
@@ -41,7 +41,7 @@ const projects = await Promise.all(
       };
     }),
 );
-const arts = { calendar: CalendarArt, wedding: WeddingArt, devserver: DevserverArt };
+const arts = { calendar: CalendarArt, wedding: WeddingArt, 'server-setup': ServerSetupArt };
 
 /** Banner across the top of a card: the project's first photo or, without photos, its illustration. */
 const banner = '-mx-7.5 -mt-7.5 mb-6.5 h-44 rounded-t-[calc(var(--radius-card)-1px)] border-b border-line bg-bg';

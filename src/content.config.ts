@@ -56,7 +56,7 @@ const projects = defineCollection({
         .url()
         .refine((url) => codeHostName(url) !== undefined, `expected a link to ${Object.keys(codeHosts).join(' or ')}`)
         .optional(),
-      art: z.enum(['calendar', 'wedding', 'devserver']),
+      art: z.enum(['calendar', 'wedding', 'server-setup']),
       /** Photos, with `src` relative to the YAML file: the first one replaces the banner illustration. */
       images: z.array(z.object({ src: image(), alt: text })).optional(),
     }),
