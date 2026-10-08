@@ -46,6 +46,7 @@ const en = {
   'proj.view': 'View on',
 
   'skills.title': 'Skills',
+  'skills.spoken': 'Spoken languages: Italian (native) · English (B2)',
 
   'pubs.title': 'Publications',
 
@@ -108,6 +109,7 @@ const it: Record<UiKey, string> = {
   'proj.view': 'Vedi su',
 
   'skills.title': 'Competenze',
+  'skills.spoken': 'Lingue parlate: Italiano (madrelingua) · Inglese (B2)',
 
   'pubs.title': 'Pubblicazioni',
 
