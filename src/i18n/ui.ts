@@ -29,7 +29,6 @@ const en = {
   'hero.bio2':
     'Today I create the software for DIESSE\'s diagnostic instruments and lead the development of the desktop applications that accompany them.',
   'hero.cta.contact': 'Get in touch',
-  'hero.cta.experience': 'See experience',
   'hero.cta.cv': 'Download CV',
   'hero.alt':
     'Illustration of a laptop showing a system status dashboard, connected to server racks on one side and to an ESP32 board with sensors and LEDs on the other',
@@ -99,7 +98,6 @@ const it: Record<UiKey, string> = {
   'hero.bio2':
     'Oggi creo il software degli strumenti diagnostici DIESSE e guido lo sviluppo delle applicazioni desktop che li accompagnano.',
   'hero.cta.contact': 'Contattami',
-  'hero.cta.experience': 'Vedi esperienza',
   'hero.cta.cv': 'Scarica il CV',
   'hero.alt':
     'Illustrazione di un laptop che mostra una dashboard di stato del sistema, collegato da un lato a rack di server e dall’altro a una scheda ESP32 con sensori e LED',
