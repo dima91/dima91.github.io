@@ -21,17 +21,10 @@ const gradient =
 ---
 
 <BaseLayout title={`404 — ${en('notFound.title')}`} description={en('notFound.title')} errorPage>
-  <script
-    slot="head"
-    is:inline
-    define:vars={{ title: `404 — ${it('notFound.title')}`, themeLabel: it('toggle.theme') }}
-  >
+  <script slot="head" is:inline define:vars={{ title: `404 — ${it('notFound.title')}` }}>
     if (/^\/it(\/|$)/.test(location.pathname)) {
       document.documentElement.lang = 'it';
       document.title = title;
-      addEventListener('DOMContentLoaded', () => {
-        document.getElementById('theme-toggle')?.setAttribute('aria-label', themeLabel);
-      });
     }
   </script>
 
