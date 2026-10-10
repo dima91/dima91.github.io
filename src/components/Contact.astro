@@ -10,7 +10,7 @@ import Section from './Section.astro';
 
 const t = useTranslations(getLang(Astro.currentLocale));
 const contacts = (await getCollection('contacts')).sort((a, b) => a.data.order - b.data.order);
-// brand colours; GitHub's mark is black, so it follows the text colour to stay visible on the dark theme
+// brand colours; GitHub's mark is black, so it follows the text colour to stay visible on the dark background
 const icons = {
   mail: { Icon: Mail, color: 'text-magenta' },
   linkedin: { Icon: LinkedIn, color: 'text-[#0A66C2]' },
