@@ -14,7 +14,7 @@ type Props = { title: string; description: string } & (
       image: { src: ImageMetadata; alt: string };
     }
   | {
-      /** Error pages: not indexed, no canonical/hreflang/Open Graph, header without nav and language toggle. */
+      /** Error pages: not indexed, no canonical/hreflang/Open Graph, no header. */
       errorPage: true;
       image?: never;
     }
@@ -96,7 +96,7 @@ const ogImage =
     ]}
   >
     <PcbBackground />
-    <Header nav={!errorPage} />
+    {!errorPage && <Header />}
     <main class:list={[errorPage && 'flex-1']}>
       <slot />
     </main>
