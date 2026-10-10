@@ -54,8 +54,8 @@ const stats: { value: string; label: UiKey }[] = [
     </ul>
   </div>
 
-  <!-- before: soft cyan/magenta glow behind the illustration. On the dark theme the illustration is
-       slightly dimmed and desaturated, so its neon colours do not overpower the page.
+  <!-- before: soft cyan/magenta glow behind the illustration. The illustration is slightly dimmed
+       and desaturated, so its neon colours do not overpower the page.
        The img keeps the source aspect ratio: resized variants round their height, which would
        shift everything below by a fraction of a pixel depending on the srcset candidate. -->
   <div
@@ -68,7 +68,7 @@ const stats: { value: string; label: UiKey }[] = [
       sizes="(min-width: 961px) min(56vw, 720px), 100vw"
       priority
       style={`aspect-ratio: ${hero.width} / ${hero.height}`}
-      class="relative w-full animate-float motion-reduce:animate-none dark:brightness-92 dark:saturate-88"
+      class="relative w-full animate-float motion-reduce:animate-none brightness-92 saturate-88"
     />
   </div>
 </section>

@@ -1,6 +1,6 @@
 /**
  * Paint vocabulary for the project banner illustrations (inline SVG shapes).
- * Colours are theme tokens, so the drawings follow light/dark.
+ * Colours are theme tokens.
  * Line caps and joins are rounded on the parent <svg> (Projects.astro): that is also what turns
  * the zero-length `h.01` segments of `dots` into round dots.
  */

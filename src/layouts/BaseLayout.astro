@@ -37,11 +37,11 @@ const ogImage =
 ---
 
 <!doctype html>
-<html lang={lang} data-theme="dark">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="dark light" />
+    <meta name="color-scheme" content="dark" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -72,14 +72,8 @@ const ogImage =
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <script is:inline>
-      /* Before first paint: apply the saved theme (default dark) and flag JS for reveal animations. */
-      (function () {
-        var d = document.documentElement;
-        d.classList.add('js');
-        try {
-          d.dataset.theme = localStorage.getItem('theme') === 'light' ? 'light' : 'dark';
-        } catch (e) {}
-      })();
+      /* Before first paint: flag JS for reveal animations. */
+      document.documentElement.classList.add('js');
     </script>
     <slot name="head" />
     <Font cssVariable="--font-bricolage" preload />
@@ -90,7 +84,7 @@ const ogImage =
   <body
     id="top"
     class:list={[
-      'bg-bg font-sans text-[16px] leading-[1.65] text-ink antialiased transition-colors duration-300 sm:text-[17px]',
+      'bg-bg font-sans text-[16px] leading-[1.65] text-ink antialiased sm:text-[17px]',
       // short pages: keep the footer at the bottom of the viewport
       errorPage && 'flex min-h-dvh flex-col',
     ]}

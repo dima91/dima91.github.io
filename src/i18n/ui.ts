@@ -19,7 +19,6 @@ const en = {
   'nav.hobbies': 'Hobbies',
   'nav.contact': 'Contact',
 
-  'toggle.theme': 'Toggle light/dark theme',
   // label for switching *to* this language (see LangToggle)
   'toggle.lang': 'Read in English',
 
@@ -89,7 +88,6 @@ const it: Record<UiKey, string> = {
   'nav.hobbies': 'Hobby',
   'nav.contact': 'Contatti',
 
-  'toggle.theme': 'Cambia tema chiaro/scuro',
   'toggle.lang': 'Leggi in italiano',
 
   'hero.place': 'Siena, Italia',

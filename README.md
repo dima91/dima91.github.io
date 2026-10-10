@@ -1,7 +1,7 @@
 # dima91.github.io
 
 Personal portfolio of Luca Di Mauro, published at <https://dima91.github.io>.
-A single static page in English (`/`) and Italian (`/it/`), with light and dark themes.
+A single static page in English (`/`) and Italian (`/it/`), with a dark theme.
 
 Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com) only: content collections,
 i18n routing, `astro:assets` and the Fonts API on the Astro side, theme tokens and utilities on the Tailwind side.
@@ -80,10 +80,9 @@ a message pointing at the field.
 
 ## Theme
 
-Colors are defined once in `src/styles/global.css`: a raw palette per theme (`:root` for dark, the default, and
-`:root[data-theme="light"]`) exposed to Tailwind as semantic tokens (`bg-surface`, `text-ink-soft`,
-`border-line`, `text-accent`…). Components use only these tokens, so they follow the theme without
-`dark:` variants. The chosen theme is stored in `localStorage` and applied before the first paint.
+The site has a single, dark theme. Colors are defined once in `src/styles/global.css`: a raw palette in `:root`,
+exposed to Tailwind as semantic tokens (`bg-surface`, `text-ink-soft`, `border-line`, `text-accent`…).
+Components use only these tokens, so changing a color means changing it in one place.
 
 The PCB backdrop (`src/components/PcbBackground.astro`) is inline SVG: trace clusters anchored to the corners
 and edges of the viewport, with the center left clear for the content. Each cluster is drawn in units of 1px on

@@ -2,7 +2,6 @@
 import { sections } from '../data/sections';
 import { getLang, useTranslations } from '../i18n/ui';
 import LangToggle from './LangToggle.astro';
-import ThemeToggle from './ThemeToggle.astro';
 
 const t = useTranslations(getLang(Astro.currentLocale));
 
@@ -38,9 +37,8 @@ const hasContact = sections.includes('contact');
           </li>
         )
       }
-      <li class="ml-auto flex items-center gap-2">
+      <li class="ml-auto flex items-center">
         <LangToggle />
-        <ThemeToggle />
       </li>
     </ul>
   </nav>

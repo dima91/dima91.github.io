@@ -1,8 +1,5 @@
 @import "tailwindcss";
 
-/* Theme is driven by <html data-theme>, set before first paint (see BaseLayout). */
-@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
-
 /* PCB backdrop (see PcbBackground.astro): scale (1 drawing unit = 1px on a 1536px-wide viewport) and
    strength (how much of the trace colours shows over the background: lower is subtler). */
 :root {
@@ -10,7 +7,7 @@
   --pcb-strength: 60%;
 }
 
-/* Raw palette: dark is the default theme. */
+/* Raw palette: the site has a single, dark theme. */
 :root {
   color-scheme: dark;
   --bg: #181d26;
@@ -34,29 +31,7 @@
   --glow-b: rgba(240, 70, 138, .06);
 }
 
-:root[data-theme="light"] {
-  color-scheme: light;
-  --bg: #eaeae6;
-  --surface: #f0f0ed;
-  --ink: #12151c;
-  --ink-soft: #4a5261;
-  --line: #d4d6da;
-  --chip: #e3e3e0;
-  --chip-strong: #d1d1d0;
-  --accent: #0c6882;
-  --accent-bright: #06b6d4;
-  --magenta: #d6246e;
-  --nav-bg: rgba(234, 234, 230, 0.82);
-  --pcb-line: color-mix(in srgb, #b4c1bb var(--pcb-strength), var(--bg));
-  --pcb-hi: color-mix(in srgb, #4f6b6f var(--pcb-strength), var(--bg));
-  --pcb-chip: color-mix(in srgb, #ccd7d2 var(--pcb-strength), var(--bg));
-  --pcb-glow: rgba(255, 255, 255, .35);
-  --pcb-vignette: rgba(70, 90, 80, .05);
-  --glow-a: rgba(6, 182, 212, .10);
-  --glow-b: rgba(214, 36, 110, .04);
-}
-
-/* Semantic tokens: utilities follow the theme through the raw palette above. */
+/* Semantic tokens: utilities take their colours from the raw palette above. */
 @theme inline {
   --color-*: initial;
   --color-bg: var(--bg);
